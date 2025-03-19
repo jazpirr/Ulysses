@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeveloperActivity"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="15dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="242dp"
+                    android:layout_height="171dp"
+                    android:src="@drawable/ulysses"
+                    android:layout_gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About Ulysses"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ulysses_about"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Our Vision"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="15dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ulysses_vision"
+                    android:layout_marginTop="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    android:backgroundTint="#f0f0f0"
+                    android:elevation="18dp"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Meet the Team"
+                            android:textSize="27sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="10dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jive Tyler I. Revalde"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jive Tyler Revalde is a 20-year-old college student passionate about programming, problem-solving, and continuous learning. With a strong interest in technology, they enjoy working on coding projects, exploring different programming languages, and understanding how things work at a deeper level.
+        \n\nOutside of academics, they have a variety of hobbies that keep them engaged. They love playing the guitar, challenging themselves with chess, and learning new languages. In their free time, they also enjoy watching anime and playing video games as a way to unwind.
+        Always curious and eager to improve, they seek to refine their skills in software development, data structures, and algorithmic thinking. Whether it’s debugging a tricky piece of code or strategizing a chess game, they enjoy solving problems and pushing themselves to grow.
+        \n\n\They believe in discipline, efficiency, and the power of structured commitment—values that align with their productivity-focused mindset. They are always looking for new opportunities to expand their knowledge and take on new challenges."
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jazpher Quirante"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="10dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jazpher Quirante is a college student navigating the challenges of academics while balancing personal interests and hobbies.
+        They are passionate about learning new things, whether its exploring different fields of study, picking up new skills, or staying updated with the latest technology.
+        \n\nOutside of classes, they enjoy playing video games, watching movies and anime, and spending time with friends. They also have an interest in music and occasionally play the guitar in their free time. A problem-solver at heart, they enjoy working on projects that challenge their thinking and creativity. Whether it's coding, brainstorming new ideas, or simply figuring out how to stay productive, they are always looking for ways to improve.
+        \n\nWhen not studying or working on assignments, they can be found reading, playing chess, or exploring different ways to stay organized. They believe in continuous growth and are always open to new opportunities and experiences."
+                            android:layout_marginTop="10dp" />
+
+
+
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

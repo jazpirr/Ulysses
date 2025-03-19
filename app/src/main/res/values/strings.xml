@@ -1,0 +1,23 @@
+<resources>
+    <string name="Dashboard">Dashboard</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+
+
+    <string name="app_name">Ulysses</string>
+
+    <string name="ulysses_about">
+        Ulysses is a productivity app designed to help you stay focused and committed to your goals by enforcing the Ulysses Pact—a strategy that removes distractions and strengthens accountability.
+        \n\n
+        By using tools such as app timers, accountability partners, and task locking, Ulysses ensures you stay on track and follow through with your commitments.
+    </string>
+
+    <string name="ulysses_vision">
+        We believe that productivity isn’t just about doing more—it’s about doing what matters most with unwavering commitment.
+        In a world full of distractions, staying focused has become a challenge, and many struggle to achieve their goals because of interruptions, procrastination, and lack of accountability.
+        \n\n
+        Our vision is to redefine productivity by creating an ecosystem where individuals can lock in their commitments, eliminate distractions, and achieve their full potential. We are not just developing an app; we are building a mindset—one that embraces the power of the Ulysses Pact as a tool for self-discipline and success.
+        \n\n
+        Just as the ancient Greek hero Ulysses tied himself to the mast to resist temptation, our platform empowers users to pre-commit to their tasks, ensuring that their focus remains unshaken. We see a future where people no longer rely on willpower alone but instead set up systems that guarantee their success.
+    </string>
+</resources>

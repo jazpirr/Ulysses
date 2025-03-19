@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity"
+    android:orientation="vertical"
+    android:isScrollContainer="true"
+    android:background="#f0f0f0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/back_icon"
+                android:drawablePadding="50dp"
+                android:layout_gravity="start"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="30dp"
+                android:paddingStart="10dp"
+                />
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D9D9D9"
+            android:hint="Search for a setting"
+            android:padding="10dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Personal Information"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:background="@android:color/white"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:drawableStart="@drawable/user"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password &amp; Security"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:background="@android:color/white"
+                android:drawablePadding="10dp"
+                android:padding="3dp"
+                android:drawableStart="@drawable/lock"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Appearance"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:background="@android:color/white"
+                android:drawablePadding="10dp"
+                android:padding="13dp"
+                android:drawableStart="@drawable/appearance"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notification"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:background="@android:color/white"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:drawableStart="@drawable/notification"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Language &amp; Region"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:background="@android:color/white"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:drawableStart="@drawable/language"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Help &amp; Support"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:background="@android:color/white"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:drawableStart="@drawable/support"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Terms of Services"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:background="@android:color/white"
+                android:drawablePadding="10dp"
+                android:padding="7dp"
+                android:drawableStart="@drawable/terms_and_services"/>
+            <Button
+                android:id="@+id/about_dev"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About the Developers"
+                android:textAllCaps="false"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:background="@android:color/white"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:drawableStart="@drawable/about"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log out"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_red_dark"
+            android:background="@android:color/white"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/logout"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
