@@ -43,7 +43,7 @@ class LoginActivity : Activity() {
             }
             username == DUMMY_USERNAME && password == DUMMY_PASSWORD -> {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LandingPage::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }
             else -> {

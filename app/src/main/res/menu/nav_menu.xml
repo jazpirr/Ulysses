@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showInt = "navigation_view">
+
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_timeout"
+            android:icon="@drawable/person"
+            android:title="Timeout" />
+        <item
+            android:title=""/>
+        <item
+            android:id="@+id/nav_accountability"
+            android:icon="@drawable/settings"
+            android:title="Accountability" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings"
+            android:title="Settings" />
+    
+
+</menu>

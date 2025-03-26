@@ -67,7 +67,6 @@ open class LandingPage : AppCompatActivity() {
                 R.id.nav_home -> {
                     Toast.makeText(this, "Opening Home", Toast.LENGTH_LONG).show();
 
-
                 }
                 R.id.nav_profile -> {
                     Toast.makeText(this, "Opening Profile", Toast.LENGTH_LONG).show();
