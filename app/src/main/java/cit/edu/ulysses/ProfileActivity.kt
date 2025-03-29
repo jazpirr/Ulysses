@@ -10,49 +10,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import cit.edu.ulysses.app.UserApplication
 
 class ProfileActivity : AppCompatActivity() {
 
-    private lateinit var editProfileLauncher: androidx.activity.result.ActivityResultLauncher<Intent>
-    private var saved_username: String = ""
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile)
 
-        var text_username = findViewById<TextView>(R.id.text_username)
-        intent?.let {
-            it.getStringExtra("username")?.let { username ->
-                text_username.setText("Hello $username!")
-                saved_username = username
-            }
-        }
-        text_username.setText(saved_username)
+        var tf_username = findViewById<TextView>(R.id.text_username)
+        var tf_dob = findViewById<TextView>(R.id.dob)
+        var tf_email = findViewById<TextView>(R.id.email)
+        var tf_phone = findViewById<TextView>(R.id.number)
+        var tf_pass = findViewById<TextView>(R.id.pass)
 
-        editProfileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
-                if (data != null) {
-                    val name = data.getStringExtra("NAME")
-                    val username = data.getStringExtra("USERNAME")
-                    val email = data.getStringExtra("EMAIL")
-                    val phone = data.getStringExtra("PHONE")
-                    val dob = data.getStringExtra("DOB")
+        tf_username.setText((application as UserApplication).username)
+        tf_email.setText((application as UserApplication).email)
+        tf_dob.setText((application as UserApplication).dob)
+        tf_phone.setText((application as UserApplication).phone)
+        tf_pass.setText("*".repeat((application as UserApplication).password.length))
 
-                    Log.d("ProfileUpdate", "Data received: Name = $name, Username = $username, Email = $email, Phone = $phone, DOB = $dob")
-
-
-                    findViewById<TextView>(R.id.name).text = name
-                    findViewById<TextView>(R.id.username).text = username
-                    findViewById<TextView>(R.id.email).text = email
-                    findViewById<TextView>(R.id.email2).text = email
-                    findViewById<TextView>(R.id.number).text = phone
-                    findViewById<TextView>(R.id.dob).text = dob
-
-                    Toast.makeText(this, "Profile Updated Successfully!", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
 
 
         val buttonEdit = findViewById<Button>(R.id.button_edit)
@@ -61,10 +41,6 @@ class ProfileActivity : AppCompatActivity() {
             Toast.makeText(this, "Editing Profile", Toast.LENGTH_SHORT).show()
             startActivity(intent);
         }
-        val buttonprev = findViewById<ImageButton>(R.id.prev)
-        buttonprev.setOnClickListener {
-            val intent = Intent(this, LandingPage::class.java)
-            startActivity(intent);
-        }
+
     }
 }

@@ -4,13 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
+import cit.edu.ulysses.app.UserApplication
+import cit.edu.ulysses.utils.isNotValid
+import cit.edu.ulysses.utils.toText
+import cit.edu.ulysses.utils.toast
 
 class LoginActivity : Activity() {
 
-    private lateinit var etUsername: EditText
-    private lateinit var etPassword: EditText
-    private lateinit var btnLogin: Button
-    private lateinit var tvRegisterLink: TextView
+
 
 
     private val DUMMY_USERNAME = "1"
@@ -20,12 +21,30 @@ class LoginActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        etUsername = findViewById(R.id.etUsername)
-        etPassword = findViewById(R.id.etPassword)
-        btnLogin = findViewById(R.id.btnLogin)
-        tvRegisterLink = findViewById(R.id.tvRegisterLink)
+        var etUsername = findViewById<EditText>(R.id.etUsername)
+        var etPassword = findViewById<EditText>(R.id.etPassword)
+        var btnLogin = findViewById<Button>(R.id.btnLogin)
+        var tvRegisterLink = findViewById<TextView>(R.id.tvRegisterLink)
 
-        btnLogin.setOnClickListener { attemptLogin() }
+        etUsername.setText((application as UserApplication).username)
+        etPassword.setText((application as UserApplication).password)
+
+
+        btnLogin.setOnClickListener {
+            if(etUsername.isNotValid() || etPassword.isNotValid()){
+                toast("Username and password cannot be empty")
+                return@setOnClickListener
+            }
+            if(etUsername.toText() != (application as UserApplication).username ||
+                etPassword.toText() != (application as UserApplication).password){
+                toast("Invalid username or password")
+                return@setOnClickListener
+            }
+
+            startActivity(
+                Intent(this, HomeActivity:: class.java)
+            )
+        }
 
         tvRegisterLink.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -33,22 +52,5 @@ class LoginActivity : Activity() {
         }
     }
 
-    private fun attemptLogin() {
-        val username = etUsername.text.toString().trim()
-        val password = etPassword.text.toString().trim()
 
-        when {
-            username.isEmpty() || password.isEmpty() -> {
-                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
-            }
-            username == DUMMY_USERNAME && password == DUMMY_PASSWORD -> {
-                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, HomeActivity::class.java))
-                finish()
-            }
-            else -> {
-                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 }
