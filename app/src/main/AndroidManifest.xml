@@ -13,29 +13,29 @@
         android:theme="@style/Theme.Ulysses"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".DeveloperActivity"
+            android:name=".activities.DeveloperActivity"
             android:exported="false" />
         <activity
-            android:name=".EditProfile"
+            android:name=".activities.EditProfile"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".LandingPage"
+            android:name=".activities.LandingPage"
             android:exported="false"
             android:theme="@style/Theme.Ulysses.NoActionBar" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

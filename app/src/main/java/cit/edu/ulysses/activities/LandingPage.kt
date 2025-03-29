@@ -1,4 +1,4 @@
-package cit.edu.ulysses
+package cit.edu.ulysses.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import cit.edu.ulysses.R
 import com.google.android.material.navigation.NavigationView
 
 
@@ -79,7 +80,7 @@ open class LandingPage : AppCompatActivity() {
                 R.id.nav_settings -> {
                     Toast.makeText(this, "Opening Settings", Toast.LENGTH_LONG).show();
 
-                    startActivity(Intent(this,SettingsActivity::class.java).apply {
+                    startActivity(Intent(this, SettingsActivity::class.java).apply {
                         putExtra("username",saved_username)
                     })
                 }

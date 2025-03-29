@@ -1,9 +1,10 @@
-package cit.edu.ulysses
+package cit.edu.ulysses.activities
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
+import cit.edu.ulysses.R
 
 class LoginActivity : Activity() {
 
@@ -24,6 +25,7 @@ class LoginActivity : Activity() {
         etPassword = findViewById(R.id.etPassword)
         btnLogin = findViewById(R.id.btnLogin)
         tvRegisterLink = findViewById(R.id.tvRegisterLink)
+
 
         btnLogin.setOnClickListener { attemptLogin() }
 

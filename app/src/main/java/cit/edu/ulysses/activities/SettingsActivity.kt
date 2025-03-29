@@ -1,4 +1,4 @@
-package cit.edu.ulysses
+package cit.edu.ulysses.activities
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import cit.edu.ulysses.R
 
 class SettingsActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

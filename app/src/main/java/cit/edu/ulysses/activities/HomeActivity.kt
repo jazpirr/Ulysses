@@ -1,17 +1,9 @@
-package cit.edu.ulysses
+package cit.edu.ulysses.activities
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -21,6 +13,7 @@ import cit.edu.ulysses.Fragment.BlankFragment2
 import cit.edu.ulysses.Fragment.HomeFragment
 import cit.edu.ulysses.Fragment.SettingsFragment
 import cit.edu.ulysses.Fragment.TimeoutFragment
+import cit.edu.ulysses.R
 import cit.edu.ulysses.databinding.ActivityHomeBinding
 import com.google.android.material.navigation.NavigationView
 

@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AlertDialog
-import cit.edu.ulysses.DeveloperActivity
-import cit.edu.ulysses.LoginActivity
-import cit.edu.ulysses.ProfileActivity
+import cit.edu.ulysses.activities.DeveloperActivity
+import cit.edu.ulysses.activities.LoginActivity
+import cit.edu.ulysses.activities.ProfileActivity
 import cit.edu.ulysses.R
 
 class SettingsFragment : Fragment() {
