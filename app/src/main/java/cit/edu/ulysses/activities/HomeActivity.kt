@@ -11,6 +11,7 @@ import cit.edu.ulysses.Fragment.AccountabilityFragment
 import cit.edu.ulysses.Fragment.BlankFragment
 import cit.edu.ulysses.Fragment.BlankFragment2
 import cit.edu.ulysses.Fragment.HomeFragment
+import cit.edu.ulysses.Fragment.NotesFragment
 import cit.edu.ulysses.Fragment.SettingsFragment
 import cit.edu.ulysses.Fragment.TimeoutFragment
 import cit.edu.ulysses.R
@@ -49,41 +50,19 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     Toast.makeText(this, "Opening Settings", Toast.LENGTH_LONG).show();
                     openFragment(SettingsFragment())
                 }
+                R.id.nav_notes -> {
+                    Toast.makeText(this,"Opening Notes", Toast.LENGTH_LONG).show()
+                    openFragment(NotesFragment())
+                }
             }
             true
         }
 
-
         fragmentManager = supportFragmentManager
         openFragment(HomeFragment())
-
-
-        binding.add.setOnClickListener{
-            Toast.makeText(this, "Adding",Toast.LENGTH_SHORT).show()
-        }
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> {
-                Toast.makeText(this, "Opening Home", Toast.LENGTH_LONG).show();
-                openFragment(BlankFragment())
-            }
-            R.id.nav_profile -> {
-                Toast.makeText(this, "Opening Profile", Toast.LENGTH_LONG).show();
-                openFragment(BlankFragment2())
-            }
-            R.id.nav_settings -> {
-                Toast.makeText(this, "Opening Settings", Toast.LENGTH_LONG).show();
-                openFragment(BlankFragment())
-            }
-            R.id.nav_settings2 -> {
-                Toast.makeText(this, "Opening Settings", Toast.LENGTH_LONG).show();
-                openFragment(BlankFragment2())
-            }
-
-        }
         return true;
     }
 

@@ -13,10 +13,12 @@
             android:icon="@drawable/person"
             android:title="Timeout" />
         <item
-            android:title=""/>
+            android:id="@+id/nav_notes"
+            android:title="Notes"
+            android:icon="@drawable/notes"/>
         <item
             android:id="@+id/nav_accountability"
-            android:icon="@drawable/settings"
+            android:icon="@drawable/partner"
             android:title="Accountability" />
 
         <item
