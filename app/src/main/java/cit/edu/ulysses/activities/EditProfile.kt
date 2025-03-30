@@ -1,12 +1,11 @@
-package cit.edu.ulysses
+package cit.edu.ulysses.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
 import cit.edu.ulysses.utils.clearOnFocus
 import cit.edu.ulysses.utils.toText
@@ -44,7 +43,7 @@ class EditProfile : AppCompatActivity() {
             (application as UserApplication).dob = dob.toText()
 
             startActivity(
-                Intent(this,ProfileActivity::class.java)
+                Intent(this, ProfileActivity::class.java)
             )
         }
 

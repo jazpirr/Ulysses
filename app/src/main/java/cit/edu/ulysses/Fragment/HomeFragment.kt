@@ -1,5 +1,7 @@
 package cit.edu.ulysses.Fragment
 
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,19 +17,38 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val appList = listOf("Facebook", "Youtube", "TikTok", "Instagram", "MS Teams", "Discord", "Mobile Legends")
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val listview = view.findViewById<ListView>(R.id.listview)
+        val pm: PackageManager = requireContext().packageManager
+        val installedApps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
+            .filter { it.flags and ApplicationInfo.FLAG_SYSTEM == 0 } // Exclude system apps
+            .map { pm.getApplicationLabel(it).toString() } // Get app names
 
-        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,appList)
+        val listView = view.findViewById<ListView>(R.id.listview)
 
-        listview.adapter = arrayAdapter
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, installedApps)
+        listView.adapter = adapter
 
-        listview.setOnItemClickListener { _, _, position, _ ->
-            Toast.makeText(requireContext(),"Item $position with data ${appList[position]}", Toast.LENGTH_LONG ).show()
+        listView.setOnItemClickListener { _, _, position, _ ->
+            Toast.makeText(requireContext(), "App: ${installedApps[position]}", Toast.LENGTH_SHORT).show()
         }
+
+
+        // Inflate the layout for this fragment
+//        val appList = listOf("Facebook", "Youtube", "TikTok", "Instagram", "MS Teams", "Discord", "Mobile Legends")
+//        val view = inflater.inflate(R.layout.fragment_home, container, false)
+//
+//        val listview = view.findViewById<ListView>(R.id.listview)
+//
+//        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,appList)
+//
+//        listview.adapter = arrayAdapter
+
+//        listview.setOnItemClickListener { _, _, position, _ ->
+//            Toast.makeText(requireContext(),"Item $position with data ${appList[position]}", Toast.LENGTH_LONG ).show()
+//        }
+
+
         return view
 
     }
