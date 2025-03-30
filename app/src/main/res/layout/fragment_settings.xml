@@ -6,6 +6,11 @@
     android:background="#f0f0f0"
     tools:context=".Fragment.SettingsFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -30,15 +35,8 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#D9D9D9"
-                android:hint="Search for a setting"
-                android:padding="10dp" />
 
 
             <LinearLayout
@@ -46,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white">
                 <Button
                     android:id="@+id/btn_profile"
@@ -188,12 +186,8 @@
                     android:drawableLeft="@drawable/logout"
                     />
             </LinearLayout>
-
-
-
         </LinearLayout>
-
-
     </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

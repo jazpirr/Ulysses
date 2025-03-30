@@ -1,4 +1,4 @@
-package cit.edu.ulysses.activities
+package cit.edu.ulysses
 
 import android.app.Activity
 import android.content.Intent
@@ -7,7 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import cit.edu.ulysses.R
+import cit.edu.ulysses.app.UserApplication
+import cit.edu.ulysses.utils.clearOnFocus
+import cit.edu.ulysses.utils.toText
 
 class EditProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,30 +17,35 @@ class EditProfile : AppCompatActivity() {
         setContentView(R.layout.edit_profile)
 
         val saveButton = findViewById<Button>(R.id.button_save)
+        val pass = findViewById<EditText>(R.id.password_edit)
+        val username = findViewById<EditText>(R.id.username_edit)
+        val email = findViewById<EditText>(R.id.email_edit)
+        val phone = findViewById<EditText>(R.id.number_edit)
+        val dob = findViewById<EditText>(R.id.bday_edit)
+
+        pass.setText("*".repeat((application as UserApplication).password.length))
+        username.setText((application as UserApplication).username)
+        email.setText((application as UserApplication).email)
+        phone.setText((application as UserApplication).phone)
+        dob.setText((application as UserApplication).dob)
+
+        pass.clearOnFocus()
+        username.clearOnFocus()
+        email.clearOnFocus()
+        phone.clearOnFocus()
+        dob.clearOnFocus()
+
 
         saveButton.setOnClickListener {
-            val name = findViewById<EditText>(R.id.name_edit).text.toString()
-            val username = findViewById<EditText>(R.id.username_edit).text.toString()
-            val email = findViewById<EditText>(R.id.email_edit).text.toString()
-            val phone = findViewById<EditText>(R.id.number_edit).text.toString()
-            val dob = findViewById<EditText>(R.id.bday_edit).text.toString()
+            (application as UserApplication).username = username.toText()
+            (application as UserApplication).email = email.toText()
+            (application as UserApplication).password = pass.toText()
+            (application as UserApplication).phone = phone.toText()
+            (application as UserApplication).dob = dob.toText()
 
-            val resultIntent = Intent().apply {
-                putExtra("NAME", name)
-                putExtra("USERNAME", username)
-                putExtra("EMAIL", email)
-                putExtra("PHONE", phone)
-                putExtra("DOB", dob)
-            }
-
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
-        }
-
-        val button_prev = findViewById<ImageButton>(R.id.prev)
-        button_prev.setOnClickListener {
-            val intent = Intent(this, LandingPage::class.java)
-            startActivity(intent);
+            startActivity(
+                Intent(this,ProfileActivity::class.java)
+            )
         }
 
         val button_cancal = findViewById<Button>(R.id.button_cancel)

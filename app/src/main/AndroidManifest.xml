@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".app.UserApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,29 +14,29 @@
         android:theme="@style/Theme.Ulysses"
         tools:targetApi="31">
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.DeveloperActivity"
+            android:name=".DeveloperActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.EditProfile"
+            android:name=".EditProfile"
+            android:exported="false"/>
+        <activity
+            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LandingPage"
+            android:name=".LandingPage"
             android:exported="false"
             android:theme="@style/Theme.Ulysses.NoActionBar" />
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
