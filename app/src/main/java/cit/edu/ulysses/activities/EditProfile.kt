@@ -50,7 +50,7 @@ class EditProfile : AppCompatActivity() {
         val button_cancal = findViewById<Button>(R.id.button_cancel)
         button_cancal.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent);
+            startActivity(intent)
         }
     }
 }

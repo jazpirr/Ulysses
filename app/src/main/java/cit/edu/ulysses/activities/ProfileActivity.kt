@@ -36,7 +36,7 @@ class ProfileActivity : AppCompatActivity() {
         buttonEdit.setOnClickListener {
             val intent = Intent(this, EditProfile::class.java)
             Toast.makeText(this, "Editing Profile", Toast.LENGTH_SHORT).show()
-            startActivity(intent);
+            startActivity(intent)
         }
 
     }

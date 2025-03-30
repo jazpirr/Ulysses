@@ -11,13 +11,6 @@ import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast
 
 class LoginActivity : Activity() {
-
-
-
-
-    private val DUMMY_USERNAME = "1"
-    private val DUMMY_PASSWORD = "1"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)

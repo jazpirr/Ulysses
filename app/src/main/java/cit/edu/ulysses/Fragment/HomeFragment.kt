@@ -1,5 +1,6 @@
 package cit.edu.ulysses.Fragment
 
+import android.annotation.SuppressLint
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.widget.Toast
 import cit.edu.ulysses.R
 
 class HomeFragment : Fragment() {
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
