@@ -11,5 +11,17 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="UlyssesDatePickerDialog" parent="ThemeOverlay.Material3.MaterialCalendar">
+
+        <item name="colorPrimary">#000000</item>
+        <item name="colorOnPrimary">#00BCD4</item>
+
+        <item name="android:backgroundTint">#C7C7C7</item>
+        <item name="android:textColorHint">@color/purple_700</item>
+        <item name="android:textColor"></item>
+
+        <item name="colorSecondary">#000000</item>
+    </style>
+
 
 </resources>

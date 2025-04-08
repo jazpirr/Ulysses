@@ -10,4 +10,5 @@
     <color name="lavender">#8692f7</color>
     <color name="gray">#818181</color>
     <color name="darkgray">#3E3E3E</color>
+    <color name="transparent">#00000000</color>
 </resources>

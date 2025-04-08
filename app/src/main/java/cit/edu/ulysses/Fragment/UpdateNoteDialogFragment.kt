@@ -50,7 +50,10 @@ class UpdateNoteDialogFragment(
             dismiss()
         }
 
-        return dialog
+        return AlertDialog.Builder(requireContext())
+            .setView(binding.root)
+            .setPositiveButton("Close") { dialog, _ -> dialog.dismiss() }
+            .create()
     }
     override fun onStart() {
         super.onStart()

@@ -36,12 +36,15 @@ class NotesFragment : Fragment() {
         binding.notesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.notesRecyclerView.adapter = notesAdapter
 
-        binding.addButton.setOnClickListener {
-            val dialog = AddNoteFragment {
-                notesAdapter.refreshData(db.getAllNotes())
-            }
-            dialog.show(parentFragmentManager, "AddNoteDialog")
-        }
+//        binding.addButton.setOnClickListener {
+//            val dialog = AddNoteFragment {
+//                notesAdapter.refreshData(db.getAllNotes())
+//            }
+//            dialog.show(parentFragmentManager, "AddNoteDialog")
+//        }
+    }
+    fun refreshNotes() {
+        notesAdapter.refreshData(db.getAllNotes())
     }
     override fun onResume() {
         super.onResume()

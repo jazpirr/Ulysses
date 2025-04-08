@@ -1,6 +1,8 @@
 package cit.edu.ulysses.activities
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,8 +11,13 @@ import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
 import cit.edu.ulysses.utils.clearOnFocus
 import cit.edu.ulysses.utils.toText
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class EditProfile : AppCompatActivity() {
+    private val calendar = Calendar.getInstance()
+    lateinit var formattedDate: String
+    lateinit var dob: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_profile)
@@ -20,7 +27,10 @@ class EditProfile : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.username_edit)
         val email = findViewById<EditText>(R.id.email_edit)
         val phone = findViewById<EditText>(R.id.number_edit)
-        val dob = findViewById<EditText>(R.id.bday_edit)
+        dob = findViewById<EditText>(R.id.bday_edit)
+        dob.showSoftInputOnFocus = false
+        dob.isFocusable = false
+
 
         pass.setText("*".repeat((application as UserApplication).password.length))
         username.setText((application as UserApplication).username)
@@ -33,6 +43,10 @@ class EditProfile : AppCompatActivity() {
         email.clearOnFocus()
         phone.clearOnFocus()
         dob.clearOnFocus()
+
+        dob.setOnClickListener{
+            showDatePicker()
+        }
 
 
         saveButton.setOnClickListener {
@@ -52,5 +66,26 @@ class EditProfile : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun showDatePicker() {
+        val dateDialog = DatePickerDialog(this, R.style.UlyssesDatePickerDialog,{DatePickerDialog, year: Int, month: Int, day: Int ->
+            calendar.set(year, month, day)
+            val selectedDate = Calendar.getInstance()
+            selectedDate.set(year,month, day)
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            formattedDate = dateFormat.format(selectedDate.time)
+            dob.setText(formattedDate)
+        },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        dateDialog.window?.setBackgroundDrawableResource(android.R.color.black)
+
+
+
+        dateDialog.show()
     }
 }

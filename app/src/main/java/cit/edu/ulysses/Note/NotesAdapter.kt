@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import cit.edu.ulysses.Fragment.UpdateNoteDialogFragment
+import cit.edu.ulysses.Fragment.ViewnoteDialogFragment
 import cit.edu.ulysses.R
 
 class NotesAdapter(
@@ -39,6 +40,13 @@ class NotesAdapter(
         val note = notes[position]
         holder.titleTextView.text = note.title
         holder.contentTextView.text = note.content
+
+        holder.itemView.setOnClickListener{
+            val dialog = ViewnoteDialogFragment(note.id){
+                refreshData(db.getAllNotes())
+            }
+            dialog.show(fragmentManager, "ViewNoteDialog")
+        }
 
         holder.updateButton.setOnClickListener {
             val dialog = UpdateNoteDialogFragment(note.id) {
