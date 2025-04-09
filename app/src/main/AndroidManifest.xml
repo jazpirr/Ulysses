@@ -10,6 +10,11 @@
         </intent>
     </queries>
 
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".app.UserApplication"
         android:allowBackup="true"
@@ -21,6 +26,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ulysses"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.OverlayActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Ulysses" />
+
+        <service
+            android:name=".services.UsageStatsService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".activities.AppListActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.HomeActivity" />
         <activity
             android:name=".activities.HomeActivity"
             android:exported="false" />

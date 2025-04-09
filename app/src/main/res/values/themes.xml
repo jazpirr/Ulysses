@@ -5,8 +5,11 @@
         <item name="colorPrimary">@color/black</item>
         <item name="colorControlNormal">@color/black</item>
     </style>
-    <style name="Theme.Ulysses.2" parent="Theme.Material3.DayNight.NoActionBar"/>
-    <style name="Theme.Ulysses.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar"/>
+
+    <style name="Theme.Ulysses.2" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <style name="Theme.Ulysses.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+
     <style name="NavigationDrawerText" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">18sp</item>
     </style>
@@ -21,6 +24,11 @@
         <item name="android:textColor"></item>
 
         <item name="colorSecondary">#000000</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Ulysses" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
 

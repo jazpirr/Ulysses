@@ -1,9 +1,13 @@
 package cit.edu.ulysses.activities
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -19,6 +23,8 @@ import cit.edu.ulysses.Note.NotesAdapter
 import cit.edu.ulysses.Note.NotesHelper
 import cit.edu.ulysses.R
 import cit.edu.ulysses.databinding.ActivityHomeBinding
+import cit.edu.ulysses.helpers.AppUsage
+import cit.edu.ulysses.services.UsageStatsService
 import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -33,7 +39,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val checkPermission = AppUsage(this);
+        checkPermission.checkUsagePermission()
 
+        val serviceIntent = Intent(this, UsageStatsService::class.java)
+        startService(serviceIntent)
 
         binding.bottomNavigation.background = null
         binding.bottomNavigation.setOnItemSelectedListener { item ->
@@ -98,4 +108,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
     }
+
+
 }

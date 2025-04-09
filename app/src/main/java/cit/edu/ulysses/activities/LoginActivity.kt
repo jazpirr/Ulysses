@@ -1,9 +1,11 @@
 package cit.edu.ulysses.activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
+import androidx.core.content.ContentProviderCompat.requireContext
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
 import cit.edu.ulysses.utils.isNotValid
@@ -14,6 +16,8 @@ class LoginActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+
 
         var etUsername = findViewById<EditText>(R.id.etUsername)
         var etPassword = findViewById<EditText>(R.id.etPassword)

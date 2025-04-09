@@ -35,22 +35,6 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), "App: ${installedApps[position]}", Toast.LENGTH_SHORT).show()
         }
 
-
-        // Inflate the layout for this fragment
-//        val appList = listOf("Facebook", "Youtube", "TikTok", "Instagram", "MS Teams", "Discord", "Mobile Legends")
-//        val view = inflater.inflate(R.layout.fragment_home, container, false)
-//
-//        val listview = view.findViewById<ListView>(R.id.listview)
-//
-//        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,appList)
-//
-//        listview.adapter = arrayAdapter
-
-//        listview.setOnItemClickListener { _, _, position, _ ->
-//            Toast.makeText(requireContext(),"Item $position with data ${appList[position]}", Toast.LENGTH_LONG ).show()
-//        }
-
-
         return view
 
     }

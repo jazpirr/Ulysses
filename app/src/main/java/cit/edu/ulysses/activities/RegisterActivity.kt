@@ -1,16 +1,19 @@
 package cit.edu.ulysses.activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
 import cit.edu.ulysses.utils.isNotValid
 import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast
+import androidx.core.content.edit
 
 class RegisterActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +45,9 @@ class RegisterActivity : Activity() {
                     toast("Password does not match.")
                     return@setOnClickListener
                 }
+//                sharedPref.edit() { putString("username", username.toText()) }
+//                sharedPref.edit() { putString("email", email.toText()) }
+//                sharedPref.edit() { putString("password", password.toText()) }
                 (application as UserApplication).username = username.toText()
                 (application as UserApplication).email = email.toText()
                 (application as UserApplication).password = password.toText()
