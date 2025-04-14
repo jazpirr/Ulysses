@@ -39,9 +39,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val checkPermission = AppUsage(this);
-        checkPermission.checkUsagePermission()
-
+        //Check for accessibility permission to start accessibility service
+        AppUsage(this).checkUsagePermission()
         val serviceIntent = Intent(this, UsageStatsService::class.java)
         startService(serviceIntent)
 

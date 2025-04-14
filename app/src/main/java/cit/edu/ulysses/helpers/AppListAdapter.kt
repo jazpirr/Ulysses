@@ -41,7 +41,7 @@ class AppListAdapter(
             val updatedSet = selectedApps.toMutableSet()
             if (isChecked) {
                 updatedSet.add(appData.packageName)
-                println(appData.name + "was checked")
+                println(appData.name + " was selected - package name: " + appData.packageName)
             } else {
                 updatedSet.remove(appData.packageName)
             }
