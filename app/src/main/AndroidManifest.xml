@@ -73,8 +73,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.LandingPage"
-            android:exported="false"
-            android:theme="@style/Theme.Ulysses.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".activities.RegisterActivity"
             android:exported="false" />

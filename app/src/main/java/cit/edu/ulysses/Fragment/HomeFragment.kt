@@ -21,19 +21,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val pm: PackageManager = requireContext().packageManager
-        val installedApps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-            .filter { it.flags and ApplicationInfo.FLAG_SYSTEM == 0 } // Exclude system apps
-            .map { pm.getApplicationLabel(it).toString() } // Get app names
 
-        val listView = view.findViewById<ListView>(R.id.listview)
-
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, installedApps)
-        listView.adapter = adapter
-
-        listView.setOnItemClickListener { _, _, position, _ ->
-            Toast.makeText(requireContext(), "App: ${installedApps[position]}", Toast.LENGTH_SHORT).show()
-        }
 
         return view
 

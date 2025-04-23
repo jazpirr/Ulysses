@@ -69,7 +69,7 @@ class EditProfile : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
-        val dateDialog = DatePickerDialog(this, R.style.UlyssesDatePickerDialog,{DatePickerDialog, year: Int, month: Int, day: Int ->
+        val dateDialog = DatePickerDialog(this, R.style.Base_Theme_Ulysses,{DatePickerDialog, year: Int, month: Int, day: Int ->
             calendar.set(year, month, day)
             val selectedDate = Calendar.getInstance()
             selectedDate.set(year,month, day)

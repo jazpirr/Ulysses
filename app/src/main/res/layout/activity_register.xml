@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="#FFFFFF"
+    android:background="@color/background_white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,118 +19,83 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="12dp"
         android:text="Create an account"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:cornerRadius="10dp"/>/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:fontFamily="@font/roboto" />
 
-    <LinearLayout
+    <!-- Email -->
+    <EditText
+        style="@style/CustomEditText"
+        android:id="@+id/et_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="8dp"
-        android:orientation="horizontal"
-        android:background="#F0F0F0">
+        android:autofillHints="emailAddress"
+        android:hint="@string/email_address"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
 
-        <EditText
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:id="@+id/et_email"
-            android:backgroundTint="#F0F0F0"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email Address"
-            android:imeOptions="actionDone"
-            android:singleLine="true"/>
-    </LinearLayout>
-    <LinearLayout
+    <!-- Username -->
+    <EditText
+        style="@style/CustomEditText"
+        android:id="@+id/et_username"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="8dp"
-        android:orientation="horizontal"
-        android:background="#F0F0F0">
+        android:autofillHints="username"
+        android:hint="@string/username"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
 
-        <EditText
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:id="@+id/et_username"
-            android:backgroundTint="#F0F0F0"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:imeOptions="actionDone"
-            android:singleLine="true"/>
-    </LinearLayout>
-
-
-    <LinearLayout
+    <!-- Password -->
+    <EditText
+        style="@style/CustomEditText"
+        android:id="@+id/et_pass"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="8dp"
-        android:orientation="horizontal"
-        android:background="#F0F0F0">
-        <EditText
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:id="@+id/et_pass"
-            android:backgroundTint="#F0F0F0"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:imeOptions="actionDone"
-            android:singleLine="true"/>
-    </LinearLayout>
-    <LinearLayout
+        android:autofillHints="password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
+
+    <!-- Confirm Password -->
+    <EditText
+        style="@style/CustomEditText"
+        android:id="@+id/et_pass2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="8dp"
-        android:orientation="horizontal"
-        android:background="#F0F0F0">
+        android:autofillHints="password"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
 
-        <EditText
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:id="@+id/et_pass2"
-            android:backgroundTint="#F0F0F0"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Confirm Password"
-            android:imeOptions="actionDone"
-            android:singleLine="true"/>
-    </LinearLayout>
-
-
-
+    <!-- Create Button -->
     <Button
+        style="@style/CustomButton"
         android:id="@+id/btn_create"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity = "center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:text="Create account"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:backgroundTint="#696969"
+        android:textSize="16sp"
         android:textAllCaps="false"
-        android:paddingVertical="10dp"/>
+        android:paddingVertical="10dp" />
 
     <TextView
+        android:paddingTop="10dp"
         android:id="@+id/haveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-
         android:text="Have an account? Login"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        />
-
-
+        android:textSize="16sp" />
 </LinearLayout>

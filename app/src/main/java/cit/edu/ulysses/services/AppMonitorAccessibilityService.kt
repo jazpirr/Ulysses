@@ -56,32 +56,32 @@ class AppMonitorAccessibilityService : AccessibilityService() {
                 launchOverlayActivity(packageName)
             }
         }
-        handler.post(taskChecker)
+//        handler.post(taskChecker)
     }
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val taskChecker = object : Runnable {
-        override fun run() {
-            getTopApp(this@AppMonitorAccessibilityService)
-            handler.postDelayed(this, 1000)
-        }
-    }
-
-    fun getTopApp(context: Context) {
-        val usageStatsManager = context.getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
-        val time = System.currentTimeMillis()
-        val appList = usageStatsManager.queryUsageStats(
-            UsageStatsManager.INTERVAL_DAILY, time - 1000 * 10, time
-        )
-
-        val recentApp = appList?.maxByOrNull { it.lastTimeUsed }
-        Log.d(TAG, "Recent app checking: $recentApp")
-        if(recentApp != null){
-            if(isAppMonitored(recentApp.packageName)){
-                launchOverlayActivity(recentApp.packageName)
-            }
-        }
-    }
+//    private val handler = Handler(Looper.getMainLooper())
+//    private val taskChecker = object : Runnable {
+//        override fun run() {
+//            getTopApp(this@AppMonitorAccessibilityService)
+//            handler.postDelayed(this, 1000)
+//        }
+//    }
+//
+//    fun getTopApp(context: Context) {
+//        val usageStatsManager = context.getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
+//        val time = System.currentTimeMillis()
+//        val appList = usageStatsManager.queryUsageStats(
+//            UsageStatsManager.INTERVAL_DAILY, time - 1000 * 10, time
+//        )
+//
+//        val recentApp = appList?.maxByOrNull { it.lastTimeUsed }
+//        Log.d(TAG, "Recent app checking: $recentApp")
+//        if(recentApp != null){
+//            if(isAppMonitored(recentApp.packageName)){
+//                launchOverlayActivity(recentApp.packageName)
+//            }
+//        }
+//    }
 
 
     private fun isHomeScreen(packageName: String, className: String): Boolean {
