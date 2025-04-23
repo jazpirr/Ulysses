@@ -1,20 +1,14 @@
 package cit.edu.ulysses.activities
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.Settings
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import cit.edu.ulysses.Fragment.AccountabilityFragment
 import cit.edu.ulysses.Fragment.AddNoteFragment
-import cit.edu.ulysses.Fragment.BlankFragment
-import cit.edu.ulysses.Fragment.BlankFragment2
 import cit.edu.ulysses.Fragment.HomeFragment
 import cit.edu.ulysses.Fragment.NotesFragment
 import cit.edu.ulysses.Fragment.SettingsFragment
@@ -23,8 +17,7 @@ import cit.edu.ulysses.Note.NotesAdapter
 import cit.edu.ulysses.Note.NotesHelper
 import cit.edu.ulysses.R
 import cit.edu.ulysses.databinding.ActivityHomeBinding
-import cit.edu.ulysses.helpers.AppUsage
-import cit.edu.ulysses.services.UsageStatsService
+import cit.edu.ulysses.helpers.PermissionHelper
 import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -36,15 +29,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Check for accessibility permission to start accessibility service
+
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //Check for accessibility permission to start accessibility service
-        AppUsage(this).checkUsagePermission()
-        val serviceIntent = Intent(this, UsageStatsService::class.java)
-        startService(serviceIntent)
-
         binding.bottomNavigation.background = null
+        PermissionHelper.checkAndRequestPermissions(this)
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.nav_home -> {
@@ -108,5 +99,27 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentTransaction.commit()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            PermissionHelper.OVERLAY_PERMISSION_REQUEST_CODE -> {
+                if (PermissionHelper.isOverlayPermissionGranted(this)) {
+                    Toast.makeText(this, "Overlay permission granted", Toast.LENGTH_SHORT).show()
+                    println("Overlay permission granted")
+                } else {
+                    Toast.makeText(this, "Overlay permission not granted", Toast.LENGTH_SHORT).show()
+                }
 
+            }
+
+            PermissionHelper.ACCESSIBILITY_PERMISSION_REQUEST_CODE -> {
+                if (PermissionHelper.isAccessibilityServiceEnabled(this)) {
+                    Toast.makeText(this, "Accessibility permission granted", Toast.LENGTH_SHORT).show()
+                    println("Accessibility permission granted")
+                } else {
+                    Toast.makeText(this, "Accessibility permission not granted", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 }

@@ -39,10 +39,9 @@
             android:id="@+id/switch_timeout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Timeout Screen"
-            app:switchTextAppearance="@color/gray"
             android:layout_marginTop="15dp"
-            android:checked="false"/>
+            android:checked="false"
+            android:text="Timeout Screen" />
 
         <TextView
             android:id="@+id/textView4"

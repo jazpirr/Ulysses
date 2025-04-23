@@ -1,102 +1,58 @@
-//package cit.edu.ulysses.activities
-//
-//import android.content.BroadcastReceiver
-//import android.content.Context
-//import android.content.Intent
-//import android.content.IntentFilter
-//import android.graphics.PixelFormat
-//import android.os.Bundle
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.WindowManager
-//import android.widget.TextView
-//import androidx.appcompat.app.AppCompatActivity
-//import cit.edu.ulysses.R
-//
-//class OverlayActivity : AppCompatActivity() {
-//
-//    private lateinit var windowManager: WindowManager
-//    private lateinit var layout: View
-//
-//    private val closeReceiver = object : BroadcastReceiver() {
-//        override fun onReceive(context: Context?, intent: Intent?) {
-//            if (intent?.action == "CLOSE_OVERLAY") {
-//                removeOverlayAndFinish()
-//            }
-//        }
-//    }
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        // Don't show the normal activity UI
-//        setContentView(R.layout.activity_empty)
-//
-//        // Create the overlay view
-//        layout = LayoutInflater.from(this).inflate(R.layout.activity_overlay, null)
-//
-//        val overlayText = layout.findViewById<TextView>(R.id.overlay_text)
-//        overlayText.text = "App Blocked"
-//
-//        // Add a close button if needed
-//        val closeButton = layout.findViewById<Button>(R.id.close_button)
-//        closeButton?.setOnClickListener {
-//            removeOverlayAndFinish()
-//        }
-//
-//        val params = WindowManager.LayoutParams(
-//            WindowManager.LayoutParams.MATCH_PARENT,
-//            WindowManager.LayoutParams.MATCH_PARENT,
-//            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-//            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-//                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-//            PixelFormat.TRANSLUCENT
-//        )
-//
-//        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-//        windowManager.addView(layout, params)
-//
-//        // Register the receiver for closing the overlay
-//        registerReceiver(closeReceiver, IntentFilter("CLOSE_OVERLAY"), RECEIVER_NOT_EXPORTED)
-//    }
-//
-//    private fun removeOverlayAndFinish() {
-//        try {
-//            if (::windowManager.isInitialized && ::layout.isInitialized) {
-//                windowManager.removeView(layout)
-//            }
-//        } catch (e: Exception) {
-//            // Handle exception if view is already removed
-//        }
-//        finish()
-//    }
-//
-//    override fun onDestroy() {
-//        try {
-//            if (::windowManager.isInitialized && ::layout.isInitialized) {
-//                windowManager.removeView(layout)
-//            }
-//            unregisterReceiver(closeReceiver)
-//        } catch (e: Exception) {
-//            // Handle any exceptions during cleanup
-//        }
-//        super.onDestroy()
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        // Remove overlay when app goes to background
-//        removeOverlayAndFinish()
-//    }
-//
-//    companion object {
-//        // Start this activity when you detect the target app opening
-//        fun start(context: Context) {
-//            val intent = Intent(context, OverlayActivity::class.java).apply {
-//                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//            }
-//            context.startActivity(intent)
-//        }
-//    }
-//}
+package cit.edu.ulysses.activities
+
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import cit.edu.ulysses.R
+import cit.edu.ulysses.services.AppMonitorAccessibilityService
+
+class OverlayActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.overlay_reminder)
+
+        // Get data from intent
+        val appName = intent.getStringExtra("appName") ?: "Unknown App"
+        val packageName = intent.getStringExtra("packageName") ?: ""
+
+        // Set up UI elements
+        val titleTextView = findViewById<TextView>(R.id.titleTextView)
+        val messageTextView = findViewById<TextView>(R.id.messageTextView)
+        val homeButton = findViewById<Button>(R.id.homeButton)
+        val continueButton = findViewById<Button>(R.id.continueButton)
+
+        titleTextView.text = "App Blocked"
+        messageTextView.text = "You've chosen to limit your time on $appName"
+
+        // Set up button actions
+        homeButton.setOnClickListener {
+            // Go to home screen
+            val homeIntent = Intent(Intent.ACTION_MAIN)
+            homeIntent.addCategory(Intent.CATEGORY_HOME)
+            homeIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(homeIntent)
+            finish() // Close this activity
+        }
+
+        // Optional: Allow continuing if settings permit
+        val allowBypass = getSharedPreferences("settings", MODE_PRIVATE)
+            .getBoolean("allow_bypass", false)
+
+        if (allowBypass) {
+            continueButton.visibility = Button.VISIBLE
+            continueButton.setOnClickListener {
+                // Allow user to continue using the app for this session
+                finish() // Just close this activity
+            }
+        } else {
+            continueButton.visibility = Button.GONE
+        }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){ override fun handleOnBackPressed() {}})
+    }
+
+}
