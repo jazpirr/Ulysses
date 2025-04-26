@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.core.content.ContentProviderCompat.requireContext
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
+import cit.edu.ulysses.users.UserHelper
 import cit.edu.ulysses.utils.isNotValid
 import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast
@@ -26,18 +27,26 @@ class LoginActivity : Activity() {
 
         etUsername.setText((application as UserApplication).username)
         etPassword.setText((application as UserApplication).password)
+        val userDb = UserHelper(this)
 
 
         btnLogin.setOnClickListener {
-            if(etUsername.isNotValid() || etPassword.isNotValid()){
-                toast("Username and password cannot be empty")
-                return@setOnClickListener
-            }
-            if(etUsername.toText() != (application as UserApplication).username ||
-                etPassword.toText() != (application as UserApplication).password){
-                toast("Invalid username or password")
-                return@setOnClickListener
-            }
+//            if(etUsername.isNotValid() || etPassword.isNotValid()){
+//                toast("Username and password cannot be empty")
+//                return@setOnClickListener
+//            }
+//            val user = userDb.getUserByUsername(etUsername.toText())
+//            if(user == null || user.password != etPassword.toText()){
+//                toast("Invalid username or password")
+//                return@setOnClickListener
+//            }
+//            val users = application as UserApplication
+//
+//            users.username = user.username
+//            users.password = user.password
+//            users.email = user.email
+//            users.phone = user.phone
+
 
             startActivity(
                 Intent(this, HomeActivity:: class.java)

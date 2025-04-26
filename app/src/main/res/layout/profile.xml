@@ -243,26 +243,25 @@
         android:padding="10dp">
 
         <Button
+            style="@style/CustomButton"
             android:id="@+id/button_edit"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="#696969"
             android:text="Edit Profile"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:cornerRadius="10dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <Button
+            style="@style/CustomButton"
             android:id="@+id/button_delete"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="#696969"
             android:text="Delete Account"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            app:cornerRadius="10dp"/>
+            android:textSize="18sp" />
     </LinearLayout>
 
 

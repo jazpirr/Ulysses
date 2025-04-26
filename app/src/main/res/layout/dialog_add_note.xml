@@ -27,6 +27,7 @@
         android:src="@drawable/baseline_done_24" />
 
     <EditText
+        style="@style/CustomEditText"
         android:id="@+id/titleEditText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -34,26 +35,28 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/border"
         android:hint="Enter the title"
-        android:maxLines="1"
-        android:padding="12sp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        android:backgroundTint="#F0F0F0"/>
+        android:imeOptions="actionDone"/>
 
     <EditText
+        style="@style/CustomEditText"
         android:id="@+id/contentEditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="470dp"
         android:layout_below="@id/titleEditText"
         android:layout_marginTop="12dp"
         android:background="@drawable/border"
         android:gravity="top"
         android:hint="Enter the description"
-        android:padding="12dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        android:backgroundTint="#F0F0F0"/>
+        android:imeOptions="actionDone"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contentEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/black"
+        android:text="Cancel" />
 
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
+import cit.edu.ulysses.users.UserHelper
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -28,11 +29,13 @@ class ProfileActivity : AppCompatActivity() {
         var btn_home = findViewById<ImageButton>(R.id.btnback)
         var btn_delete = findViewById<Button>(R.id.button_delete)
 
-        tf_username.setText((application as UserApplication).username)
-        tf_email.setText((application as UserApplication).email)
-        tf_dob.setText((application as UserApplication).dob)
-        tf_phone.setText((application as UserApplication).phone)
-        tf_pass.setText("*".repeat((application as UserApplication).password.length))
+        val app = application as UserApplication
+
+        tf_username.text = app.username
+        tf_email.text = app.email
+        tf_dob.text = app.dob
+        tf_phone.text = app.phone
+        tf_pass.text = "*".repeat(app.password.length)
 
         btn_home.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
@@ -53,16 +56,23 @@ class ProfileActivity : AppCompatActivity() {
             builder.setTitle("Delete Account")
             builder.setMessage("Are you sure you want to delete this account?")
             builder.setPositiveButton("Yes") { _, _ ->
+                val username = app.username
+
+                val userDb = UserHelper(this)
+                userDb.deleteUser(username)
+
+                app.email = ""
+                app.phone = ""
+                app.dob = ""
+                app.username = ""
+                app.password = ""
+
+                Toast.makeText(this, "You have successfully deleted your account", Toast.LENGTH_LONG).show()
+
                 val intent = Intent(this, LoginActivity::class.java)
-                Toast.makeText(this, "You have successfully deleted your account", Toast.LENGTH_LONG).show();
-                (application as UserApplication).email = ""
-                (application as UserApplication).phone = ""
-                (application as UserApplication).dob = ""
-                (application as UserApplication).username = ""
-                (application as UserApplication).password = ""
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
-                finish()
+                finish()  // Finish the ProfileActivity
             }
             builder.setNegativeButton("Cancel", null)
             builder.show()

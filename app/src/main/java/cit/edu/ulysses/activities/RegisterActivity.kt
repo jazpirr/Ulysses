@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -14,6 +15,7 @@ import cit.edu.ulysses.utils.isNotValid
 import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast
 import androidx.core.content.edit
+import cit.edu.ulysses.users.UserHelper
 
 class RegisterActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +27,7 @@ class RegisterActivity : Activity() {
         val password2 = findViewById<EditText>(R.id.et_pass2)
         val email = findViewById<EditText>(R.id.et_email)
         val btn_create = findViewById<Button>(R.id.btn_create)
+        val userDb = UserHelper(this)
 
         val loginLink = findViewById<TextView>(R.id.haveAccount)
         loginLink.setOnClickListener { v ->
@@ -48,9 +51,16 @@ class RegisterActivity : Activity() {
 //                sharedPref.edit() { putString("username", username.toText()) }
 //                sharedPref.edit() { putString("email", email.toText()) }
 //                sharedPref.edit() { putString("password", password.toText()) }
+                Log.d("Register Act", "Current username saved: ${(application as UserApplication).username} ")
                 (application as UserApplication).username = username.toText()
                 (application as UserApplication).email = email.toText()
                 (application as UserApplication).password = password.toText()
+
+                userDb.insertUser(
+                    username = username.toText(),
+                    email = email.toText(),
+                    password = password.toText()
+                )
 
                 startActivity(
                     Intent(this, LoginActivity::class.java)

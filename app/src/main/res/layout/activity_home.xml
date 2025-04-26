@@ -30,6 +30,7 @@
                 android:backgroundTint="@color/black"
                 app:fabAnchorMode="cradle"
                 app:fabAlignmentMode="center"
+                app:fabCradleVerticalOffset="15dp"
                 app:fabCradleRoundedCornerRadius="20dp">
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -48,11 +49,51 @@
                 android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
                 android:src="@drawable/baseline_add_24"
+                app:layout_anchor="@+id/bottom_bar"
+                app:layout_anchorGravity="center"
                 app:maxImageSize="40dp"
                 app:tint="@color/white"
-                android:backgroundTint="@color/black"
-                app:layout_anchor="@id/bottom_bar" />
+                tools:ignore="ContentDescription" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:visibility="invisible"
+                android:id="@+id/add_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/darkgray"
+                android:focusable="true"
+                android:src="@drawable/baseline_edit_24"
+                app:layout_anchor="@+id/add"
+                app:layout_anchorGravity="start|top"
+                app:maxImageSize="30dp"
+                app:tint="@color/white"
+                tools:ignore="ContentDescription,MissingConstraints"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="572dp"
+                android:translationX="-20dp"
+                android:translationY="-30dp"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:visibility="invisible"
+                android:id="@+id/add_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/darkgray"
+                android:focusable="true"
+                android:src="@drawable/baseline_access_alarm_24"
+                app:layout_anchor="@+id/add"
+                app:layout_anchorGravity="end|top"
+                app:maxImageSize="30dp"
+                app:tint="@color/white"
+                tools:ignore="ContentDescription,MissingConstraints"
+                android:translationX="20dp"
+                android:translationY="-30dp"/>
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

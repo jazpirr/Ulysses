@@ -94,15 +94,15 @@
                         app:boxCornerRadiusBottomStart="8dp"
                         app:startIconDrawable="@drawable/person"
                         >
+
                         <EditText
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
+                            style="@style/CustomEditText"
+                            android:id="@+id/username_edit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/username_edit"
                             android:imeOptions="actionDone"
-                            android:singleLine="true"
-                            android:inputType="textPersonName|textCapWords"/>
+                            android:inputType="textPersonName|textCapWords"
+                            android:singleLine="true"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -118,8 +118,7 @@
                         android:layout_marginTop="5dp"
                         >
                         <EditText
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
+                            style="@style/CustomEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/email_edit"
@@ -141,8 +140,7 @@
                         android:layout_marginTop="5dp"
                         >
                         <EditText
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
+                            style="@style/CustomEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/number_edit"
@@ -164,8 +162,7 @@
                         android:layout_marginTop="5dp"
                         >
                         <EditText
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
+                            style="@style/CustomEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/bday_edit"
@@ -187,8 +184,7 @@
                         android:layout_marginTop="5dp"
                         >
                         <EditText
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
+                            style="@style/CustomEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/password_edit"
@@ -208,25 +204,25 @@
         android:padding="10dp">
 
         <Button
+            style="@style/CustomButton"
             android:id="@+id/button_save"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="#696969"
             android:text="Save"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:cornerRadius="10dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <Button
+            style="@style/CustomButton"
             android:id="@+id/button_cancel"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="#696969"
             android:text="Cancel"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:cornerRadius="10dp"/>
+/>
     </LinearLayout>
 </LinearLayout>

@@ -21,6 +21,10 @@ class SettingsActivity : Activity() {
         aboutUs.setOnClickListener {
             startActivity(Intent(this, DeveloperActivity::class.java))
         }
+        val profile = findViewById<Button>(R.id.btn_profile)
+        profile.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
     }
 
     private fun showLogoutConfirmation() {

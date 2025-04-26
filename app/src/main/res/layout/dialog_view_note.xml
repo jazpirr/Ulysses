@@ -15,23 +15,25 @@
         android:textColor="@color/black"
         android:textSize="24sp" />
 
-
-
-
     <EditText
+        style="@style/CustomEditText"
         android:id="@+id/viewDescription"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="550dp"
         android:layout_below="@id/title"
         android:layout_marginTop="12dp"
         android:background="@drawable/border"
         android:gravity="top"
         android:hint="Description"
-        android:padding="12dp"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        android:backgroundTint="#F0F0F0"
-        android:focusable="false"/>
+        android:imeOptions="actionDone"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewDescription"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/black"
+        android:text="Cancel" />
 
 </RelativeLayout>

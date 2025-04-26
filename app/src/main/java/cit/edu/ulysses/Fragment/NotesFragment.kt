@@ -1,5 +1,6 @@
 package cit.edu.ulysses.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cit.edu.ulysses.Note.NotesAdapter
 import cit.edu.ulysses.Note.NotesHelper
 import cit.edu.ulysses.R
+import cit.edu.ulysses.activities.SettingsActivity
 import cit.edu.ulysses.databinding.FragmentNotesBinding
 
 class NotesFragment : Fragment() {
@@ -24,9 +26,14 @@ class NotesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
+
+        binding.btnSetting.setOnClickListener{
+            startActivity(
+                Intent(requireContext(), SettingsActivity:: class.java)
+            )
+        }
         return binding.root
 
-        return view;
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

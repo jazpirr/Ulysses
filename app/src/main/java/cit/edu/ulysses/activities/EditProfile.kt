@@ -9,8 +9,10 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
+import cit.edu.ulysses.users.UserHelper
 import cit.edu.ulysses.utils.clearOnFocus
 import cit.edu.ulysses.utils.toText
+import cit.edu.ulysses.utils.toast
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -27,16 +29,20 @@ class EditProfile : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.username_edit)
         val email = findViewById<EditText>(R.id.email_edit)
         val phone = findViewById<EditText>(R.id.number_edit)
+
+        val app = application as UserApplication
+        val db = UserHelper(this)
+
         dob = findViewById<EditText>(R.id.bday_edit)
         dob.showSoftInputOnFocus = false
         dob.isFocusable = false
 
 
-        pass.setText("*".repeat((application as UserApplication).password.length))
-        username.setText((application as UserApplication).username)
-        email.setText((application as UserApplication).email)
-        phone.setText((application as UserApplication).phone)
-        dob.setText((application as UserApplication).dob)
+        pass.setText("*".repeat(app.password.length))
+        username.setText(app.username)
+        email.setText(app.email)
+        phone.setText(app.phone)
+        dob.setText(app.dob)
 
         pass.clearOnFocus()
         username.clearOnFocus()
@@ -50,22 +56,38 @@ class EditProfile : AppCompatActivity() {
 
 
         saveButton.setOnClickListener {
-            (application as UserApplication).username = username.toText()
-            (application as UserApplication).email = email.toText()
-            (application as UserApplication).password = pass.toText()
-            (application as UserApplication).phone = phone.toText()
-            (application as UserApplication).dob = dob.toText()
+            val newUsername = username.toText()
+            val newPassword = pass.toText()
+            val newEmail = email.toText()
+            val newPhone = phone.toText()
+            val newDob = dob.toText()
 
-            startActivity(
-                Intent(this, ProfileActivity::class.java)
+            app.username = newUsername
+            app.password = newPassword
+            app.email = newEmail
+            app.phone = newPhone
+            app.dob = newDob
+
+            db.updateUser(
+                username = newUsername,
+                email = newEmail,
+                password = newPassword,
+                phone = newPhone,
+                dob = newDob
             )
+
+            toast("Profile updated!")
+            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
         }
 
         val button_cancal = findViewById<Button>(R.id.button_cancel)
         button_cancal.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+            finish()
         }
+
     }
 
     private fun showDatePicker() {

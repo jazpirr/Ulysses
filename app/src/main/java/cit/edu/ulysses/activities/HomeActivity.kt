@@ -3,12 +3,17 @@ package cit.edu.ulysses.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import cit.edu.ulysses.Fragment.AddNoteFragment
+import cit.edu.ulysses.Fragment.EditAlarmDialogFragment
+import cit.edu.ulysses.Fragment.FragmentAlarm
 import cit.edu.ulysses.Fragment.HomeFragment
 import cit.edu.ulysses.Fragment.NotesFragment
 import cit.edu.ulysses.Fragment.SettingsFragment
@@ -26,6 +31,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityHomeBinding
     private lateinit var db: NotesHelper
     private lateinit var notesAdapter: NotesAdapter
+
+    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim)}
+    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim)}
+
+    private var clicked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +60,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                    Toast.makeText(this, "Opening Accountability", Toast.LENGTH_LONG).show();
 //                    openFragment(AccountabilityFragment())
 //                }
-                R.id.nav_settings -> {
-                    Toast.makeText(this, "Opening Settings", Toast.LENGTH_LONG).show();
-                    openFragment(SettingsFragment())
+                R.id.nav_alarm -> {
+                    Toast.makeText(this, "Opening Alarm", Toast.LENGTH_LONG).show();
+                    openFragment(FragmentAlarm())
                 }
                 R.id.nav_notes -> {
                     Toast.makeText(this,"Opening Notes", Toast.LENGTH_LONG).show()
@@ -77,7 +87,12 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         binding.add.setOnClickListener{
-            Toast.makeText(this, "Adding",Toast.LENGTH_SHORT).show()
+            onAddButtonClicked()
+        }
+
+
+        binding.addNote.setOnClickListener{
+            Toast.makeText(this, "Adding Note",Toast.LENGTH_SHORT).show()
             val dialog = AddNoteFragment {
                 val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
                 if (currentFragment is NotesFragment) {
@@ -85,6 +100,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
             dialog.show(supportFragmentManager, "AddNoteDialog")
+        }
+        binding.addAlarm.setOnClickListener{
+            Toast.makeText(this, "Adding Alarm",Toast.LENGTH_SHORT).show()
+            val fragment = EditAlarmDialogFragment()
+            val bundle = Bundle()
+            fragment.arguments = bundle
+            fragment.show(supportFragmentManager, "edit_alarm")
         }
         notesAdapter.refreshData(db.getAllNotes())
     }
@@ -122,4 +144,48 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
     }
+
+    private fun onAddButtonClicked() {
+        setVisibility(clicked)
+        setAnimation(clicked)
+        setClickable(clicked)
+        clicked = !clicked
+    }
+
+    private fun setAnimation(clicked: Boolean) {
+        if(!clicked){
+            binding.addNote.startAnimation(fromBottom)
+            binding.addAlarm.startAnimation(fromBottom)
+            binding.add.animate().rotationBy(45f).setDuration(300).start()
+
+        } else {
+            binding.add.animate().rotationBy(45f).setDuration(300).start()
+            binding.addNote.startAnimation(toBottom)
+            binding.addAlarm.startAnimation(toBottom)
+
+        }
+    }
+
+    private fun setVisibility(clicked: Boolean) {
+        if(!clicked){
+            binding.addNote.visibility = View.VISIBLE
+            binding.addAlarm.visibility = View.VISIBLE
+
+        } else {
+            binding.addNote.visibility = View.INVISIBLE
+            binding.addAlarm.visibility = View.INVISIBLE
+
+        }
+
+    }
+    private fun setClickable(clicked: Boolean){
+        if(!clicked){
+            binding.addNote.isClickable = true
+            binding.addAlarm.isClickable = true
+        } else {
+            binding.addNote.isClickable = false
+            binding.addAlarm.isClickable = false
+        }
+    }
+
 }

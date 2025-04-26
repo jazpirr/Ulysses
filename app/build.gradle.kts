@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("nl.bryanderidder:themed-toggle-button-group:1.4.1")
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

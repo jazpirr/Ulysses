@@ -29,16 +29,19 @@ class ViewnoteDialogFragment(
         binding.viewDescription.setText(note.content)
         binding.title.setText(note.title)
 
+        binding.btnOK.setOnClickListener{
+            dismiss()
+        }
+
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)
-            .setPositiveButton("Close") { dialog, _ -> dialog.dismiss() }
             .create()
     }
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
             (resources.displayMetrics.widthPixels * 0.90).toInt(),
-            (resources.displayMetrics.heightPixels * 0.8).toInt()
+            (resources.displayMetrics.heightPixels * 0.85).toInt()
         )
     }
 
