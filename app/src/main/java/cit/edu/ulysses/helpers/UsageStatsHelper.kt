@@ -43,6 +43,49 @@ class UsageStatsHelper(context: Context) {
         return totalScreenOnTime
     }
 
+    fun getTotalScreenTimeForRanges(
+        startTimes: List<Long>,
+        endTimes: List<Long>
+    ): List<Long> {
+        val result = mutableListOf<Long>()
+
+        for (i in startTimes.indices) {
+            val startTime = startTimes[i]
+            val endTime = endTimes[i]
+
+            val usageEvents = usageStatsManager.queryEvents(startTime, endTime)
+
+            var totalScreenOnTime = 0L
+            var lastScreenInteractiveTime: Long? = null
+
+            while (usageEvents.hasNextEvent()) {
+                val event = UsageEvents.Event()
+                usageEvents.getNextEvent(event)
+                when (event.eventType) {
+                    UsageEvents.Event.SCREEN_INTERACTIVE -> {
+                        lastScreenInteractiveTime = event.timeStamp
+                    }
+                    UsageEvents.Event.SCREEN_NON_INTERACTIVE, UsageEvents.Event.DEVICE_SHUTDOWN -> {
+                        if (lastScreenInteractiveTime != null) {
+                            totalScreenOnTime += event.timeStamp - lastScreenInteractiveTime
+                            lastScreenInteractiveTime = null
+                        }
+                    }
+                }
+            }
+
+            if (lastScreenInteractiveTime != null) {
+                totalScreenOnTime += endTime - lastScreenInteractiveTime
+            }
+
+            result.add(totalScreenOnTime)
+        }
+
+        return result
+    }
+
+
+
     fun getScreenOnTimesForAppsToday(
         packageNames: List<String>
     ): Map<String, Long> {
@@ -126,6 +169,37 @@ class UsageStatsHelper(context: Context) {
             set(Calendar.MILLISECOND, 0)
         }.timeInMillis
     }
+    fun getStartAndEndTimesForWeek(): Pair<List<Long>, List<Long>> {
+        val startTimes = mutableListOf<Long>()
+        val endTimes = mutableListOf<Long>()
+
+        val calendar = Calendar.getInstance()
+        calendar.firstDayOfWeek = Calendar.MONDAY
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        for (i in 0..6) {
+            startTimes.add(calendar.timeInMillis)
+
+            calendar.set(Calendar.HOUR_OF_DAY, 23)
+            calendar.set(Calendar.MINUTE, 59)
+            calendar.set(Calendar.SECOND, 59)
+            calendar.set(Calendar.MILLISECOND, 999)
+            endTimes.add(calendar.timeInMillis)
+
+            calendar.add(Calendar.DATE, 1)
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
+        }
+
+        return Pair(startTimes, endTimes)
+    }
+
 
     fun getEndOfDaymillis(): Long {
         return Calendar.getInstance().apply {
