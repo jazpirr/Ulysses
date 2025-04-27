@@ -1,4 +1,4 @@
-package cit.edu.ulysses.Fragment
+package cit.edu.ulysses.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

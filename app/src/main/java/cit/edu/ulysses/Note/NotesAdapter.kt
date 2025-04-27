@@ -10,8 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import cit.edu.ulysses.Fragment.UpdateNoteDialogFragment
-import cit.edu.ulysses.Fragment.ViewnoteDialogFragment
+import cit.edu.ulysses.fragment.UpdateNoteDialogFragment
+import cit.edu.ulysses.fragment.ViewnoteDialogFragment
 import cit.edu.ulysses.R
 
 class NotesAdapter(

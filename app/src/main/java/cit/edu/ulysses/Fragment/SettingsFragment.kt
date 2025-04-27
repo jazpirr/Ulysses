@@ -1,5 +1,6 @@
-package cit.edu.ulysses.Fragment
+package cit.edu.ulysses.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun showLogoutConfirmation() {
-        val builder = android.app.AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Logout")
         builder.setMessage("Are you sure you want to log out?")
         builder.setPositiveButton("OK") { _, _ ->

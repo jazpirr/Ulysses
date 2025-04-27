@@ -1,4 +1,4 @@
-package cit.edu.ulysses.Fragment
+package cit.edu.ulysses.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager

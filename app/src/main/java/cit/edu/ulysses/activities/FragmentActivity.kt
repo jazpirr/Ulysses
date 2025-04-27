@@ -3,17 +3,12 @@ package cit.edu.ulysses.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import cit.edu.ulysses.fragment.AddNoteFragment
-import cit.edu.ulysses.fragment.EditAlarmDialogFragment
-import cit.edu.ulysses.fragment.FragmentAlarm
 import cit.edu.ulysses.fragment.HomeFragment
 import cit.edu.ulysses.fragment.NotesFragment
 import cit.edu.ulysses.fragment.SettingsFragment
@@ -25,21 +20,15 @@ import cit.edu.ulysses.databinding.ActivityHomeBinding
 import cit.edu.ulysses.helpers.PermissionHelper
 import com.google.android.material.navigation.NavigationView
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class FragmentActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: ActivityHomeBinding
     private lateinit var db: NotesHelper
     private lateinit var notesAdapter: NotesAdapter
 
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim)}
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim)}
-
-    private var clicked = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Check for accessibility permission to start accessibility service
 
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -49,23 +38,19 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.nav_home -> {
-                    Toast.makeText(this, "Opening Home", Toast.LENGTH_LONG).show();
                     openFragment(HomeFragment())
                 }
                 R.id.nav_timeout -> {
-                    Toast.makeText(this, "Opening Timeout", Toast.LENGTH_LONG).show();
                     openFragment(TimeoutFragment())
                 }
 //                R.id.nav_accountability -> {
 //                    Toast.makeText(this, "Opening Accountability", Toast.LENGTH_LONG).show();
 //                    openFragment(AccountabilityFragment())
 //                }
-                R.id.nav_alarm -> {
-                    Toast.makeText(this, "Opening Alarm", Toast.LENGTH_LONG).show();
-                    openFragment(FragmentAlarm())
+                R.id.nav_settings -> {
+                    openFragment(SettingsFragment())
                 }
                 R.id.nav_notes -> {
-                    Toast.makeText(this,"Opening Notes", Toast.LENGTH_LONG).show()
                     openFragment(NotesFragment())
                 }
             }
@@ -87,12 +72,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         binding.add.setOnClickListener{
-            onAddButtonClicked()
-        }
-
-
-        binding.addNote.setOnClickListener{
-            Toast.makeText(this, "Adding Note",Toast.LENGTH_SHORT).show()
             val dialog = AddNoteFragment {
                 val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
                 if (currentFragment is NotesFragment) {
@@ -100,13 +79,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
             dialog.show(supportFragmentManager, "AddNoteDialog")
-        }
-        binding.addAlarm.setOnClickListener{
-            Toast.makeText(this, "Adding Alarm",Toast.LENGTH_SHORT).show()
-            val fragment = EditAlarmDialogFragment()
-            val bundle = Bundle()
-            fragment.arguments = bundle
-            fragment.show(supportFragmentManager, "edit_alarm")
         }
         notesAdapter.refreshData(db.getAllNotes())
     }
@@ -144,48 +116,4 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
     }
-
-    private fun onAddButtonClicked() {
-        setVisibility(clicked)
-        setAnimation(clicked)
-        setClickable(clicked)
-        clicked = !clicked
-    }
-
-    private fun setAnimation(clicked: Boolean) {
-        if(!clicked){
-            binding.addNote.startAnimation(fromBottom)
-            binding.addAlarm.startAnimation(fromBottom)
-            binding.add.animate().rotationBy(45f).setDuration(300).start()
-
-        } else {
-            binding.add.animate().rotationBy(45f).setDuration(300).start()
-            binding.addNote.startAnimation(toBottom)
-            binding.addAlarm.startAnimation(toBottom)
-
-        }
-    }
-
-    private fun setVisibility(clicked: Boolean) {
-        if(!clicked){
-            binding.addNote.visibility = View.VISIBLE
-            binding.addAlarm.visibility = View.VISIBLE
-
-        } else {
-            binding.addNote.visibility = View.INVISIBLE
-            binding.addAlarm.visibility = View.INVISIBLE
-
-        }
-
-    }
-    private fun setClickable(clicked: Boolean){
-        if(!clicked){
-            binding.addNote.isClickable = true
-            binding.addAlarm.isClickable = true
-        } else {
-            binding.addNote.isClickable = false
-            binding.addAlarm.isClickable = false
-        }
-    }
-
 }

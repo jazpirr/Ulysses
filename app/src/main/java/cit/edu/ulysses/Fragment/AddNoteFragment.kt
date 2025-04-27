@@ -1,4 +1,4 @@
-package cit.edu.ulysses.Fragment
+package cit.edu.ulysses.fragment
 
 import android.app.Dialog
 import android.os.Bundle
