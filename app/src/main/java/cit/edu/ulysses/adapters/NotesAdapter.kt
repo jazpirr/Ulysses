@@ -60,7 +60,7 @@ class NotesAdapter(
         holder.deleteButton.setOnClickListener {
             AlertDialog.Builder(context).apply{
                 setTitle("Delete Note")
-                setMessage("Are you sure you want ot delete this note?")
+                setMessage("Are you sure you want to delete this note?")
                 setPositiveButton("Yes"){_, _ ->
                     db.deleteNote(note.id)
                     refreshData(db.getAllNotes())
