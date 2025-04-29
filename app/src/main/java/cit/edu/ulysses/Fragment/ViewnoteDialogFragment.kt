@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.DialogFragment
-import cit.edu.ulysses.Note.NotesHelper
+import cit.edu.ulysses.helpers.NotesHelper
 import cit.edu.ulysses.R
 import cit.edu.ulysses.databinding.DialogViewNoteBinding
 

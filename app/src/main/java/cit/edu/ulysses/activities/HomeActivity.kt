@@ -18,8 +18,8 @@ import cit.edu.ulysses.fragment.HomeFragment
 import cit.edu.ulysses.fragment.NotesFragment
 import cit.edu.ulysses.fragment.SettingsFragment
 import cit.edu.ulysses.fragment.TimeoutFragment
-import cit.edu.ulysses.Note.NotesAdapter
-import cit.edu.ulysses.Note.NotesHelper
+import cit.edu.ulysses.adapters.NotesAdapter
+import cit.edu.ulysses.helpers.NotesHelper
 import cit.edu.ulysses.R
 import cit.edu.ulysses.databinding.ActivityHomeBinding
 import cit.edu.ulysses.helpers.PermissionHelper
@@ -39,8 +39,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Check for accessibility permission to start accessibility service
-
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)

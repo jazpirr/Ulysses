@@ -15,7 +15,7 @@ import cit.edu.ulysses.utils.isNotValid
 import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast
 import androidx.core.content.edit
-import cit.edu.ulysses.users.UserHelper
+import cit.edu.ulysses.helpers.UserHelper
 
 class RegisterActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

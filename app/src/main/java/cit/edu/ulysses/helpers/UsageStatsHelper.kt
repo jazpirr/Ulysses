@@ -8,91 +8,37 @@ import java.util.*
 
 class UsageStatsHelper(context: Context) {
     private val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+    private lateinit var packageNames: List<String>
+    fun getTotalScreenTime(): Long {
+        return getTotalScreenTime(getStartOfDayMillis(), System.currentTimeMillis())
+    }
 
-    fun getTotalScreenTime(): Long{
-        val startTime = getStartOfDayMillis()
-        val endTime = System.currentTimeMillis()
-        val usageEvents = usageStatsManager.queryEvents(startTime, endTime)
+    fun getTotalScreenTime(startTime: Long, endTime: Long): Long {
         var totalScreenOnTime = 0L
-        var lastScreenInteractiveTime: Long? = null
-
-        while (usageEvents.hasNextEvent()) {
-            val event = UsageEvents.Event()
-            usageEvents.getNextEvent(event)
-            when (event.eventType) {
-                UsageEvents.Event.SCREEN_INTERACTIVE -> {
-                    lastScreenInteractiveTime = event.timeStamp
-                }
-                UsageEvents.Event.SCREEN_NON_INTERACTIVE -> {
-                    if (lastScreenInteractiveTime != null) {
-                        totalScreenOnTime += event.timeStamp - lastScreenInteractiveTime
-                        lastScreenInteractiveTime = null
-                    }
-                }
-                UsageEvents.Event.DEVICE_SHUTDOWN -> {
-                    if (lastScreenInteractiveTime != null) { totalScreenOnTime += event.timeStamp - lastScreenInteractiveTime
-                            lastScreenInteractiveTime = null
-                    }
-                }
+        val screenTimes = getScreenOnTimesForApps(null, startTime, endTime)
+        for(entry in screenTimes){
+            if(entry.value >= 60000L){
+                totalScreenOnTime += entry.value
             }
-        }
-
-        if (lastScreenInteractiveTime != null) {
-            totalScreenOnTime += endTime - lastScreenInteractiveTime
         }
         return totalScreenOnTime
     }
 
-    fun getTotalScreenTimeForRanges(
-        startTimes: List<Long>,
-        endTimes: List<Long>
-    ): List<Long> {
+
+    fun getTotalScreenTimeForRanges(startTimes: List<Long>, endTimes: List<Long>): List<Long> {
         val result = mutableListOf<Long>()
 
         for (i in startTimes.indices) {
-            val startTime = startTimes[i]
-            val endTime = endTimes[i]
-
-            val usageEvents = usageStatsManager.queryEvents(startTime, endTime)
-
-            var totalScreenOnTime = 0L
-            var lastScreenInteractiveTime: Long? = null
-
-            while (usageEvents.hasNextEvent()) {
-                val event = UsageEvents.Event()
-                usageEvents.getNextEvent(event)
-                when (event.eventType) {
-                    UsageEvents.Event.SCREEN_INTERACTIVE -> {
-                        lastScreenInteractiveTime = event.timeStamp
-                    }
-                    UsageEvents.Event.SCREEN_NON_INTERACTIVE, UsageEvents.Event.DEVICE_SHUTDOWN -> {
-                        if (lastScreenInteractiveTime != null) {
-                            totalScreenOnTime += event.timeStamp - lastScreenInteractiveTime
-                            lastScreenInteractiveTime = null
-                        }
-                    }
-                }
-            }
-
-            if (lastScreenInteractiveTime != null) {
-                totalScreenOnTime += endTime - lastScreenInteractiveTime
-            }
-
-            result.add(totalScreenOnTime)
+            result.add(getTotalScreenTime(startTimes[i], endTimes[i]))
         }
 
         return result
     }
 
-
-
-    fun getScreenOnTimesForAppsToday(
-        packageNames: List<String>
+    fun getScreenOnTimesForApps(
+        packageNames: List<String>?, startTime: Long, endTime: Long
     ): Map<String, Long> {
-        val startTime = getStartOfDayMillis()
-        val endTime = getEndOfDaymillis()
         val usageEvents = usageStatsManager.queryEvents(startTime, endTime)
-
         val totalScreenOnTimes = mutableMapOf<String, Long>()
         val lastInteractiveTimes = mutableMapOf<String, Long?>()
         val appInForeground = mutableSetOf<String>()
@@ -102,13 +48,12 @@ class UsageStatsHelper(context: Context) {
             usageEvents.getNextEvent(event)
             when (event.eventType) {
                 UsageEvents.Event.SCREEN_INTERACTIVE -> {
-                    packageNames.forEach { pkg ->
+                    packageNames?.forEach { pkg ->
                         if (pkg !in lastInteractiveTimes) {
                             lastInteractiveTimes[pkg] = null
                         }
                     }
                 }
-
                 UsageEvents.Event.SCREEN_NON_INTERACTIVE, UsageEvents.Event.DEVICE_SHUTDOWN -> {
                     appInForeground.forEach { pkg ->
                         val lastInteractive = lastInteractiveTimes[pkg]
@@ -119,33 +64,28 @@ class UsageStatsHelper(context: Context) {
                     }
                     appInForeground.clear()
                 }
-
                 UsageEvents.Event.ACTIVITY_RESUMED -> {
-                    if (event.packageName in packageNames) {
+                    if (packageNames == null || event.packageName in packageNames) {
                         appInForeground.add(event.packageName)
                         lastInteractiveTimes[event.packageName] = event.timeStamp
                     }
                 }
-
                 UsageEvents.Event.ACTIVITY_PAUSED -> {
-                    if (event.packageName in packageNames && event.packageName in appInForeground) {
+                    if ((packageNames == null || event.packageName in packageNames) && event.packageName in appInForeground) {
                         val lastInteractive = lastInteractiveTimes[event.packageName]
                         if (lastInteractive != null) {
                             totalScreenOnTimes[event.packageName] =
-                                (totalScreenOnTimes[event.packageName]
-                                    ?: 0) + (event.timeStamp - lastInteractive)
+                                (totalScreenOnTimes[event.packageName] ?: 0) + (event.timeStamp - lastInteractive)
                             lastInteractiveTimes[event.packageName] = null
                         }
                         appInForeground.remove(event.packageName)
                     }
                 }
-
             }
         }
 
         return totalScreenOnTimes
     }
-
 
     fun formatMilliseconds(milliseconds: Long): String {
         if (milliseconds <= 0) return "0 min"
@@ -173,6 +113,7 @@ class UsageStatsHelper(context: Context) {
         val startTimes = mutableListOf<Long>()
         val endTimes = mutableListOf<Long>()
 
+        val now = Calendar.getInstance()
         val calendar = Calendar.getInstance()
         calendar.firstDayOfWeek = Calendar.MONDAY
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
@@ -184,12 +125,22 @@ class UsageStatsHelper(context: Context) {
         for (i in 0..6) {
             startTimes.add(calendar.timeInMillis)
 
-            calendar.set(Calendar.HOUR_OF_DAY, 23)
-            calendar.set(Calendar.MINUTE, 59)
-            calendar.set(Calendar.SECOND, 59)
-            calendar.set(Calendar.MILLISECOND, 999)
-            endTimes.add(calendar.timeInMillis)
+            val endOfDay = calendar.clone() as Calendar
+            endOfDay.set(Calendar.HOUR_OF_DAY, 23)
+            endOfDay.set(Calendar.MINUTE, 59)
+            endOfDay.set(Calendar.SECOND, 59)
+            endOfDay.set(Calendar.MILLISECOND, 999)
 
+            // If it's today, and today isn't finished yet, cap at current time
+            if (calendar.get(Calendar.YEAR) == now.get(Calendar.YEAR) &&
+                calendar.get(Calendar.DAY_OF_YEAR) == now.get(Calendar.DAY_OF_YEAR)
+            ) {
+                endTimes.add(now.timeInMillis)
+            } else {
+                endTimes.add(endOfDay.timeInMillis)
+            }
+
+            // Move to next day
             calendar.add(Calendar.DATE, 1)
             calendar.set(Calendar.HOUR_OF_DAY, 0)
             calendar.set(Calendar.MINUTE, 0)
@@ -201,7 +152,8 @@ class UsageStatsHelper(context: Context) {
     }
 
 
-    fun getEndOfDaymillis(): Long {
+
+    fun getEndOfDayMillis(): Long {
         return Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 23)
             set(Calendar.MINUTE,59)

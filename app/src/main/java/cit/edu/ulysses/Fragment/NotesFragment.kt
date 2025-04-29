@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import cit.edu.ulysses.Note.NotesAdapter
-import cit.edu.ulysses.Note.NotesHelper
+import cit.edu.ulysses.adapters.NotesAdapter
+import cit.edu.ulysses.helpers.NotesHelper
 import cit.edu.ulysses.R
 import cit.edu.ulysses.activities.SettingsActivity
 import cit.edu.ulysses.databinding.FragmentNotesBinding

@@ -1,4 +1,4 @@
-package cit.edu.ulysses.db
+package cit.edu.ulysses.data
 
 data class User(
     val id: Int,

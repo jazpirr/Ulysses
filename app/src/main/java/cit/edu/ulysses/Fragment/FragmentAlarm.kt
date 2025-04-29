@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import cit.edu.ulysses.activities.HomeActivity
 import cit.edu.ulysses.activities.SettingsActivity
-import cit.edu.ulysses.alarm.Alarm
-import cit.edu.ulysses.alarm.AlarmAdapter
-import cit.edu.ulysses.alarm.DatabaseHelper
+import cit.edu.ulysses.data.Alarm
+import cit.edu.ulysses.adapters.AlarmAdapter
+import cit.edu.ulysses.helpers.DatabaseHelper
 import cit.edu.ulysses.databinding.FragmentAlarmBinding
 
 class FragmentAlarm : Fragment() {

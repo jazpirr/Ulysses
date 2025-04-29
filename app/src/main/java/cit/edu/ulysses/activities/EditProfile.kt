@@ -9,7 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
-import cit.edu.ulysses.users.UserHelper
+import cit.edu.ulysses.helpers.UserHelper
 import cit.edu.ulysses.utils.clearOnFocus
 import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast

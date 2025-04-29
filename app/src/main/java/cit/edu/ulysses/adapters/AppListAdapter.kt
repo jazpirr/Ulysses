@@ -1,4 +1,4 @@
-package cit.edu.ulysses.helpers
+package cit.edu.ulysses.adapters
 
 import android.content.SharedPreferences
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.edit
 import androidx.recyclerview.widget.RecyclerView
 import cit.edu.ulysses.R
 import cit.edu.ulysses.models.AppData
-import androidx.core.content.edit
 
 class AppListAdapter(
     private val appList: List<AppData>,

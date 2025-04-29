@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import cit.edu.ulysses.R
+import androidx.core.net.toUri
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -29,24 +30,23 @@ class AlarmReceiver : BroadcastReceiver() {
     }
     private fun createChannel(context : Context , alarmLabel : String){
         val channelId = "alarm_channel"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val ringtone : Uri = Uri.parse("android.resource://${context.packageName}/${R.raw.alarm_sound}")
-            //Creating Notification Channel
-            val notificationChannel: NotificationChannel = NotificationChannel(channelId, "Alarm Notification", NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.setSound(ringtone,null)
-            //Creating Notification Manager
-            val notificationManager : NotificationManager = context.getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(notificationChannel)
-            //Creating Notification Builder
-            val builder : NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
-                .setContentTitle("Alarm")
-                .setContentText(alarmLabel)
-                .setSmallIcon(R.drawable.alarm_icon)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setSound(ringtone)
-            val notificationId = System.currentTimeMillis().toInt()
-            notificationManager.notify(notificationId, builder.build())
-        }
+        val ringtone : Uri =
+            "android.resource://${context.packageName}/${R.raw.alarm_sound}".toUri()
+        //Creating Notification Channel
+        val notificationChannel: NotificationChannel = NotificationChannel(channelId, "Alarm Notification", NotificationManager.IMPORTANCE_HIGH)
+        notificationChannel.setSound(ringtone,null)
+        //Creating Notification Manager
+        val notificationManager : NotificationManager = context.getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(notificationChannel)
+        //Creating Notification Builder
+        val builder : NotificationCompat.Builder = NotificationCompat.Builder(context, channelId)
+            .setContentTitle("Alarm")
+            .setContentText(alarmLabel)
+            .setSmallIcon(R.drawable.alarm_icon)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setSound(ringtone)
+        val notificationId = System.currentTimeMillis().toInt()
+        notificationManager.notify(notificationId, builder.build())
 
     }
 }

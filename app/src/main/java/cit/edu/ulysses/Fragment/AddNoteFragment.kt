@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import cit.edu.ulysses.Note.Note
-import cit.edu.ulysses.Note.NotesHelper
+import cit.edu.ulysses.data.Note
+import cit.edu.ulysses.helpers.NotesHelper
 import cit.edu.ulysses.databinding.DialogAddNoteBinding
 
 class AddNoteFragment(private val onNoteAdded: () -> Unit) : DialogFragment() {

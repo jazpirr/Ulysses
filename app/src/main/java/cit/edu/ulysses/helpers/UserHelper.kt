@@ -1,11 +1,11 @@
-package cit.edu.ulysses.users
+package cit.edu.ulysses.helpers
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import cit.edu.ulysses.db.User
+import cit.edu.ulysses.data.User
 
 class UserHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {

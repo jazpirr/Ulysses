@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
-import cit.edu.ulysses.users.UserHelper
+import cit.edu.ulysses.helpers.UserHelper
 
 class ProfileActivity : AppCompatActivity() {
 

@@ -8,7 +8,7 @@ import android.widget.*
 import androidx.core.content.ContentProviderCompat.requireContext
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
-import cit.edu.ulysses.users.UserHelper
+import cit.edu.ulysses.helpers.UserHelper
 import cit.edu.ulysses.utils.isNotValid
 import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast

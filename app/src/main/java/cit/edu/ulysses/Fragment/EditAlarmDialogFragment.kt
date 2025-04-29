@@ -9,9 +9,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import cit.edu.ulysses.R
-import cit.edu.ulysses.alarm.Alarm
+import cit.edu.ulysses.data.Alarm
 import cit.edu.ulysses.alarm.AlarmReceiver
-import cit.edu.ulysses.alarm.DatabaseHelper
+import cit.edu.ulysses.helpers.DatabaseHelper
 import cit.edu.ulysses.databinding.ActivityEditAlarmBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar

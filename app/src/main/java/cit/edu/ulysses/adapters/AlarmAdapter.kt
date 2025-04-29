@@ -1,11 +1,13 @@
-package cit.edu.ulysses.alarm
+package cit.edu.ulysses.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cit.edu.ulysses.R
+import cit.edu.ulysses.data.Alarm
 import cit.edu.ulysses.databinding.AdapterAlarmBinding
+import cit.edu.ulysses.helpers.DatabaseHelper
 
 class AlarmAdapter(
     private val context: Context,

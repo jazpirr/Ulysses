@@ -13,8 +13,8 @@ import cit.edu.ulysses.fragment.HomeFragment
 import cit.edu.ulysses.fragment.NotesFragment
 import cit.edu.ulysses.fragment.SettingsFragment
 import cit.edu.ulysses.fragment.TimeoutFragment
-import cit.edu.ulysses.Note.NotesAdapter
-import cit.edu.ulysses.Note.NotesHelper
+import cit.edu.ulysses.adapters.NotesAdapter
+import cit.edu.ulysses.helpers.NotesHelper
 import cit.edu.ulysses.R
 import cit.edu.ulysses.databinding.ActivityHomeBinding
 import cit.edu.ulysses.helpers.PermissionHelper

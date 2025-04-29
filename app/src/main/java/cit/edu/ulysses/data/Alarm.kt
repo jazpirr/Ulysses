@@ -1,4 +1,4 @@
-package cit.edu.ulysses.alarm
+package cit.edu.ulysses.data
 
 data class Alarm(
     var id: Int?,

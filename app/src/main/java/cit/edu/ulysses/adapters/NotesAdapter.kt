@@ -1,4 +1,4 @@
-package cit.edu.ulysses.Note
+package cit.edu.ulysses.adapters
 
 import android.app.AlertDialog
 import android.content.Context
@@ -10,9 +10,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import cit.edu.ulysses.data.Note
+import cit.edu.ulysses.R
 import cit.edu.ulysses.fragment.UpdateNoteDialogFragment
 import cit.edu.ulysses.fragment.ViewnoteDialogFragment
-import cit.edu.ulysses.R
+import cit.edu.ulysses.helpers.NotesHelper
 
 class NotesAdapter(
     private var notes: List<Note>,
@@ -42,7 +44,7 @@ class NotesAdapter(
         holder.contentTextView.text = note.content
 
         holder.itemView.setOnClickListener{
-            val dialog = ViewnoteDialogFragment(note.id){
+            val dialog = ViewnoteDialogFragment(note.id) {
                 refreshData(db.getAllNotes())
             }
             dialog.show(fragmentManager, "ViewNoteDialog")
