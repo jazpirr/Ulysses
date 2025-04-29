@@ -31,21 +31,21 @@ class LoginActivity : Activity() {
 
 
         btnLogin.setOnClickListener {
-//            if(etUsername.isNotValid() || etPassword.isNotValid()){
-//                toast("Username and password cannot be empty")
-//                return@setOnClickListener
-//            }
-//            val user = userDb.getUserByUsername(etUsername.toText())
-//            if(user == null || user.password != etPassword.toText()){
-//                toast("Invalid username or password")
-//                return@setOnClickListener
-//            }
-//            val users = application as UserApplication
-//
-//            users.username = user.username
-//            users.password = user.password
-//            users.email = user.email
-//            users.phone = user.phone
+            if(etUsername.isNotValid() || etPassword.isNotValid()){
+                toast("Username and password cannot be empty")
+                return@setOnClickListener
+            }
+            val user = userDb.getUserByUsername(etUsername.toText())
+            if(user == null || user.password != etPassword.toText()){
+                toast("Invalid username or password")
+                return@setOnClickListener
+            }
+            val users = application as UserApplication
+
+            users.username = user.username
+            users.password = user.password
+            users.email = user.email
+            users.phone = user.phone
 
 
             startActivity(

@@ -30,7 +30,7 @@
                     android:id="@+id/notesHeading"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Notes"
+                    android:text="Alarm"
                     android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -63,6 +63,7 @@
             android:paddingTop="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/white"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"

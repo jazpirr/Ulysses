@@ -38,16 +38,16 @@
         android:imeOptions="actionDone"/>
 
     <EditText
-        style="@style/CustomEditText"
         android:id="@+id/updateContentEditText"
+        style="@style/CustomEditText"
         android:layout_width="match_parent"
         android:layout_height="470dp"
         android:layout_below="@id/updateTitleEditText"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
         android:background="@drawable/border"
         android:gravity="top"
         android:hint="Enter the description"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnOK"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import cit.edu.ulysses.adapters.NotesAdapter
 import cit.edu.ulysses.helpers.NotesHelper
 import cit.edu.ulysses.R
@@ -40,7 +41,7 @@ class NotesFragment : Fragment() {
 
         db = NotesHelper(requireContext())
         notesAdapter = NotesAdapter(db.getAllNotes(), requireContext(), parentFragmentManager)
-        binding.notesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.notesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.notesRecyclerView.adapter = notesAdapter
 
 //        binding.addButton.setOnClickListener {
