@@ -35,6 +35,18 @@ class UsageStatsHelper(context: Context) {
         return result
     }
 
+    fun getUnlocksForRanges(startTimes: List<Long>, endTimes: List<Long>): List<Long> {
+        val result = mutableListOf<Long>()
+
+        for (i in startTimes.indices) {
+            val r = getUnlocks(null,startTimes[i], endTimes[i])
+            result.add(r["phone_unlocks"] ?: 0)
+        }
+
+        return result
+    }
+
+
     fun getScreenOnTimesForApps(
         packageNames: List<String>?, startTime: Long, endTime: Long
     ): Map<String, Long> {
@@ -86,6 +98,29 @@ class UsageStatsHelper(context: Context) {
 
         return totalScreenOnTimes
     }
+
+    fun getUnlocks(packageNames: List<String>?, startTime: Long,endTime: Long): Map<String, Long>{
+        val usageEvents = usageStatsManager.queryEvents(startTime,endTime)
+        val event = UsageEvents.Event()
+        var unlocks = mutableMapOf<String, Long>()
+        var phoneUnlocks = 0
+        while(usageEvents.hasNextEvent()){
+            usageEvents.getNextEvent(event)
+            when(event.eventType){
+                UsageEvents.Event.ACTIVITY_RESUMED -> {
+                    if(packageNames?.contains(event.packageName) == true || packageNames == null){
+                         unlocks[event.packageName] = (unlocks[event.packageName] ?: 0) + 1
+                     }
+                }
+                UsageEvents.Event.KEYGUARD_HIDDEN -> {
+                        phoneUnlocks++
+                }
+            }
+        }
+        unlocks["phone_unlocks"] = phoneUnlocks.toLong()
+        return unlocks
+    }
+
 
     fun formatMilliseconds(milliseconds: Long): String {
         if (milliseconds <= 0) return "0 min"
@@ -150,8 +185,6 @@ class UsageStatsHelper(context: Context) {
 
         return Pair(startTimes, endTimes)
     }
-
-
 
     fun getEndOfDayMillis(): Long {
         return Calendar.getInstance().apply {

@@ -52,7 +52,15 @@ abstract class BaseBarChartFragment : Fragment() {
                     if (index in colors.indices) {
                         colors[index] = selectedColor
                     }
+
+                    val resultSource = when(this@BaseBarChartFragment){
+                        is ScreenTimeFragment -> "screen_time"
+//                        is NotificationsFragment -> "notifications"
+                        is UnlockFragment -> "unlocks"
+                        else -> ""
+                    }
                     val result = Bundle().apply {
+                        putString("result_source", resultSource)
                         putInt("selected_index", index)
                     }
                     parentFragmentManager.setFragmentResult("bar_selected", result)

@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:padding="10dp">
 
-    <TextView
+    <ImageView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App Blocked"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:src="@drawable/heart_hollow"
         app:layout_constraintBottom_toTopOf="@id/messageTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,15 +44,29 @@
 
         <Button
             android:id="@+id/homeButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/CustomButton"
+            android:textSize="16sp"
             android:text="Go Home" />
 
-        <Button
+        <cit.edu.ulysses.utils.ProgressButton
+            android:id="@+id/progressButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            style="@style/CustomButton"
+            android:text="Working..."
+            android:padding="16dp"/>
+
+
+        <TextView
             android:id="@+id/continueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Continue Anyway"
+            android:text="Emergency"
+            android:layout_margin="8dp"
+            android:textSize="14sp"
             android:visibility="visible" />
     </LinearLayout>
 
