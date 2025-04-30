@@ -1,5 +1,8 @@
 package cit.edu.ulysses.data
 
-data class Note(val id: Int,
-                val title: String,
-                val content: String)
+data class Note(
+    var id: String? = null,
+    var title: String = "",
+    var content: String = "",
+    var userId: String = ""
+)

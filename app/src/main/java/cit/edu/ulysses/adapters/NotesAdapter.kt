@@ -14,7 +14,8 @@ import cit.edu.ulysses.data.Note
 import cit.edu.ulysses.R
 import cit.edu.ulysses.fragment.UpdateNoteDialogFragment
 import cit.edu.ulysses.fragment.ViewnoteDialogFragment
-import cit.edu.ulysses.helpers.NotesHelper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class NotesAdapter(
     private var notes: List<Note>,
@@ -22,7 +23,8 @@ class NotesAdapter(
     private val fragmentManager: FragmentManager
 ) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
-    private val db: NotesHelper = NotesHelper(context)
+    private val firestore = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
@@ -43,30 +45,40 @@ class NotesAdapter(
         holder.titleTextView.text = note.title
         holder.contentTextView.text = note.content
 
-        holder.itemView.setOnClickListener{
-            val dialog = ViewnoteDialogFragment(note.id) {
-                refreshData(db.getAllNotes())
+        holder.itemView.setOnClickListener {
+            val dialog = ViewnoteDialogFragment(note.id!!) {
+
             }
             dialog.show(fragmentManager, "ViewNoteDialog")
         }
 
         holder.updateButton.setOnClickListener {
-            val dialog = UpdateNoteDialogFragment(note.id) {
-                refreshData(db.getAllNotes())
+            val dialog = UpdateNoteDialogFragment(note.id!!) {
+
             }
             dialog.show(fragmentManager, "UpdateNoteDialog")
         }
 
         holder.deleteButton.setOnClickListener {
-            AlertDialog.Builder(context).apply{
+            AlertDialog.Builder(context).apply {
                 setTitle("Delete Note")
                 setMessage("Are you sure you want to delete this note?")
-                setPositiveButton("Yes"){_, _ ->
-                    db.deleteNote(note.id)
-                    refreshData(db.getAllNotes())
-                    Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
+                setPositiveButton("Yes") { _, _ ->
+                    firestore.collection("users")
+                        .document(auth.currentUser?.uid ?: return@setPositiveButton)
+                        .collection("notes")
+                        .document(note.id!!)
+                        .delete()
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
+                            val updatedNotes = notes.filter { it.id != note.id }
+                            refreshData(updatedNotes)
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(context, "Failed to delete note: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                 }
-                setNegativeButton("No"){dialog, _ ->
+                setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }
                 show()

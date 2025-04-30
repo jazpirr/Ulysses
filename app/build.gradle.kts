@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-parcelize")
-
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -58,9 +58,13 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("nl.bryanderidder:themed-toggle-button-group:1.4.1")
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
