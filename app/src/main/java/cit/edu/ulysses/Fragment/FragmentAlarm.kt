@@ -58,7 +58,8 @@ class FragmentAlarm : Fragment() {
     }
 
     private fun initUI() {
-        if(!isAdded) return;
+        if (!isAdded) return
+
         if (userId != null) {
             db.collection("users")
                 .document(userId)
