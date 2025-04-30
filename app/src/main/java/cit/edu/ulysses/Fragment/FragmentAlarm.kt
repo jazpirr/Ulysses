@@ -58,12 +58,15 @@ class FragmentAlarm : Fragment() {
     }
 
     private fun initUI() {
+        if(!isAdded) return;
         if (userId != null) {
             db.collection("users")
                 .document(userId)
                 .collection("alarms")
                 .get()
                 .addOnSuccessListener { result ->
+                    if (!isAdded) return@addOnSuccessListener
+
                     alarmList = mutableListOf()
                     for (document in result) {
                         val alarm = document.toObject(Alarm::class.java)
@@ -83,8 +86,10 @@ class FragmentAlarm : Fragment() {
                     binding.recyclerView.adapter = adapter
                     binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(requireContext(),"Failed!", Toast.LENGTH_SHORT).show()
+                .addOnFailureListener {
+                    if (isAdded) {
+                        Toast.makeText(requireContext(),"Failed!", Toast.LENGTH_SHORT).show()
+                    }
                 }
         }
     }
