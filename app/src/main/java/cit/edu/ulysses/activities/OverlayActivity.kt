@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import cit.edu.ulysses.R
 import cit.edu.ulysses.services.AppMonitorAccessibilityService
+import cit.edu.ulysses.utils.ProgressButton
 
 class OverlayActivity : AppCompatActivity() {
 
@@ -21,12 +22,17 @@ class OverlayActivity : AppCompatActivity() {
         val packageName = intent.getStringExtra("packageName") ?: ""
 
         // Set up UI elements
-        val titleTextView = findViewById<TextView>(R.id.titleTextView)
+//        val titleTextView = findViewById<TextView>(R.id.titleTextView)
         val messageTextView = findViewById<TextView>(R.id.messageTextView)
         val homeButton = findViewById<Button>(R.id.homeButton)
-        val continueButton = findViewById<Button>(R.id.continueButton)
+//        val continueButton = findViewById<Button>(R.id.continueButton)
+        val progressButton = findViewById<ProgressButton>(R.id.progressButton)
+        progressButton.setOnClickListener {
+            progressButton.startProgress()
+        }
 
-        titleTextView.text = "App Blocked"
+
+//        titleTextView.text = "App Blocked"
         messageTextView.text = "You've chosen to limit your time on $appName"
 
         // Set up button actions
@@ -43,15 +49,15 @@ class OverlayActivity : AppCompatActivity() {
         val allowBypass = getSharedPreferences("settings", MODE_PRIVATE)
             .getBoolean("allow_bypass", false)
 
-        if (allowBypass) {
-            continueButton.visibility = Button.VISIBLE
-            continueButton.setOnClickListener {
-                // Allow user to continue using the app for this session
-                finish() // Just close this activity
-            }
-        } else {
-            continueButton.visibility = Button.GONE
-        }
+//        if (allowBypass) {
+//            continueButton.visibility = Button.VISIBLE
+//            continueButton.setOnClickListener {
+//                // Allow user to continue using the app for this session
+//                finish() // Just close this activity
+//            }
+//        } else {
+//            continueButton.visibility = Button.GONE
+//        }
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true){ override fun handleOnBackPressed() {}})
     }
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.TimeoutFragment"
+    tools:context=".fragment.TimeoutFragment"
     android:background="#f0f0f0">
 
 
@@ -16,17 +16,6 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="20dp"
         >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Timeout"
-            android:textSize="25sp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:id="@+id/textView3"
@@ -41,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:checked="false"
+            app:track="@drawable/track_toggle"
             android:text="Timeout Screen" />
 
         <TextView

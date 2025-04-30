@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
         }
 
         tvTotalTime = view.findViewById(R.id.totalTimeText)
-        updateTotalTime(usageStatsHelper.getTotalScreenTime())
+        updateTextView(usageStatsHelper.getTotalScreenTime(), "screen_time")
 
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
@@ -72,7 +73,8 @@ class HomeFragment : Fragment() {
     private fun initializeTabLayout(tabLayout: TabLayout, viewPager: ViewPager2){
         val (startTimes, endTimes) = usageStatsHelper.getStartAndEndTimesForWeek()
         val screenTimesPerDay = usageStatsHelper.getTotalScreenTimeForRanges(startTimes, endTimes)
-        val chartAdapter = ChartPagerAdapter(requireActivity(), screenTimesPerDay)
+        val unlocksPerDay = usageStatsHelper.getUnlocksForRanges(startTimes, endTimes)
+        val chartAdapter = ChartPagerAdapter(requireActivity(), screenTimesPerDay,unlocksPerDay)
         viewPager.adapter = chartAdapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -84,36 +86,72 @@ class HomeFragment : Fragment() {
             }
         }.attach()
 
-        barChartListenerUpdate(startTimes,endTimes)
+        tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                barChartListenerUpdate(startTimes,endTimes)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                barChartListenerUpdate(startTimes,endTimes)
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                barChartListenerUpdate(startTimes,endTimes)
+            }
+        })
+
+
     }
 
     private fun barChartListenerUpdate(startTimes: List<Long>, endTimes: List<Long>) {
         parentFragmentManager.setFragmentResultListener("bar_selected", this) { _, bundle ->
             val selectedIndex = bundle.getInt("selected_index")
-            val selectedStart = startTimes[selectedIndex]
-            val selectedEnd = endTimes[selectedIndex]
+            val selectedStart = startTimes.getOrNull(selectedIndex) ?: return@setFragmentResultListener
+            val selectedEnd = endTimes.getOrNull(selectedIndex) ?: return@setFragmentResultListener
+            var newValue = 0L
+            var appStats: Map<String, Long> = emptyMap()
 
-            val newTotalTimeMillis = usageStatsHelper.getTotalScreenTime(selectedStart, selectedEnd)
-            if(newTotalTimeMillis >= 0){
-                updateTotalTime(newTotalTimeMillis)
+            Log.d("al;sdkfjal;kdfkljasdf", bundle.getString("result_source").toString())
+            when (bundle.getString("result_source")) {
+                "screen_time" -> {
+                    newValue = usageStatsHelper.getTotalScreenTime(selectedStart, selectedEnd)
+                    appStats = usageStatsHelper.getScreenOnTimesForApps(packageNames, selectedStart, selectedEnd)
+                }
+                "notifications" -> {
+                }
+                "unlocks" ->{
+                    appStats = usageStatsHelper.getUnlocks(null,selectedStart,selectedEnd)
+                    newValue = appStats["phone_unlocks"] ?: 0
+                }
+                else -> {
+                    return@setFragmentResultListener
+                }
+            }
 
-                val appUsageForDay = usageStatsHelper.getScreenOnTimesForApps(packageNames, selectedStart, selectedEnd)
-                updateAppList(appUsageForDay)
+            if (newValue > 0) {
+                updateTextView(newValue, bundle.getString("result_source") ?: "")
+                updateAppList(appStats)
             }
         }
     }
 
-    private fun updateTotalTime(newMillis: Long) {
-        val animator = ValueAnimator.ofFloat(currentTotalTimeMillis.toFloat(), newMillis.toFloat())
+    private fun updateTextView(newValue: Long, type: String) {
+        val animator = ValueAnimator.ofFloat(currentTotalTimeMillis.toFloat(), newValue.toFloat())
         animator.duration = 250
         animator.addUpdateListener { animation ->
             val animatedValue = (animation.animatedValue as Float).toLong()
-            tvTotalTime.text = usageStatsHelper.formatMilliseconds(animatedValue)
+            val displayText = when (type) {
+                "screen_time" -> usageStatsHelper.formatMilliseconds(animatedValue)
+                "unlocks" -> "$animatedValue times"
+                else -> animatedValue.toString()
+            }
+            tvTotalTime.text = displayText
         }
         animator.start()
 
-        currentTotalTimeMillis = newMillis
+        currentTotalTimeMillis = newValue
     }
+
 
     private fun updateAppList(appUsage: Map<String, Long>) {
         lifecycleScope.launch {
