@@ -9,13 +9,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlin.math.roundToInt
 
 class ScreenTimeFragment : BaseBarChartFragment() {
-    private lateinit var title: String
     private var screenTimes: List<Long> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            title = it.getString(ARG_TITLE, "")
             screenTimes = it.getLongArray(ARG_SCREEN_TIMES)?.toList() ?: emptyList()
         }
     }
@@ -42,21 +40,17 @@ class ScreenTimeFragment : BaseBarChartFragment() {
         return maxEntry + 1
     }
 
-    override fun getChartTitle(): String {
-        return title
-    }
+    override fun getChartTitle(): String = "Screen time"
 
     override fun getAxisValueFormatter(): ValueFormatter {
         return IndexAxisValueFormatter(listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))
     }
 
     companion object {
-        private const val ARG_TITLE = "title"
         private const val ARG_SCREEN_TIMES = "screen_times"
 
-        fun newInstance(title: String, screenTimes: List<Long>) = ScreenTimeFragment().apply {
+        fun newInstance(screenTimes: List<Long>) = ScreenTimeFragment().apply {
             arguments = Bundle().apply {
-                putString(ARG_TITLE, title)
                 putLongArray(ARG_SCREEN_TIMES, screenTimes.toLongArray())
             }
         }

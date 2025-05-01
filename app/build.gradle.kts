@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.commonizer.OptimisticNumberCommonizationEnabledKey.alias
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -42,6 +44,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -59,7 +62,9 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("nl.bryanderidder:themed-toggle-button-group:1.4.1")
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
-
+    implementation("com.tbuonomo:dotsindicator:4.3")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

@@ -9,13 +9,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlin.math.roundToInt
 
 class UnlockFragment : BaseBarChartFragment() {
-    private lateinit var title: String
     private var unlocks: List<Long> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            title = it.getString(ARG_TITLE, "")
             unlocks = it.getLongArray(ARG_UNLOCK_NUM)?.toList() ?: emptyList()
         }
     }
@@ -40,21 +38,17 @@ class UnlockFragment : BaseBarChartFragment() {
         return maxEntry + 1
     }
 
-    override fun getChartTitle(): String {
-        return title
-    }
+    override fun getChartTitle(): String = "Unlocks"
 
     override fun getAxisValueFormatter(): ValueFormatter {
         return IndexAxisValueFormatter(listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))
     }
 
     companion object {
-        private const val ARG_TITLE = "UNLOCK"
         private const val ARG_UNLOCK_NUM = "unlock_nums"
 
-        fun newInstance(title: String, unlocks: List<Long>) = UnlockFragment().apply {
+        fun newInstance( unlocks: List<Long>) = UnlockFragment().apply {
             arguments = Bundle().apply {
-                putString(ARG_TITLE, title)
                 putLongArray(ARG_UNLOCK_NUM, unlocks.toLongArray())
             }
         }

@@ -6,5 +6,5 @@ data class AppStats(
     val name: String,
     val icon: Drawable,
     val packageName: String,
-    val statistic: Long
+    val statistic: String
 )

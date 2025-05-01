@@ -55,7 +55,7 @@ abstract class BaseBarChartFragment : Fragment() {
 
                     val resultSource = when(this@BaseBarChartFragment){
                         is ScreenTimeFragment -> "screen_time"
-//                        is NotificationsFragment -> "notifications"
+                        is NotificationsFragment -> "notifications"
                         is UnlockFragment -> "unlocks"
                         else -> ""
                     }

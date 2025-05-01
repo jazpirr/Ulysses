@@ -52,19 +52,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.nav_home -> {
-                    Toast.makeText(this, "Opening Home", Toast.LENGTH_LONG).show()
                     openFragment(HomeFragment())
                 }
                 R.id.nav_timeout -> {
-                    Toast.makeText(this, "Opening Timeout", Toast.LENGTH_LONG).show()
                     openFragment(TimeoutFragment())
                 }
                 R.id.nav_alarm -> {
-                    Toast.makeText(this, "Opening Alarm", Toast.LENGTH_LONG).show()
                     openFragment(FragmentAlarm())
                 }
                 R.id.nav_notes -> {
-                    Toast.makeText(this, "Opening Notes", Toast.LENGTH_LONG).show()
                     openFragment(NotesFragment())
                 }
             }
@@ -140,29 +136,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            PermissionHelper.OVERLAY_PERMISSION_REQUEST_CODE -> {
-                if (PermissionHelper.isOverlayPermissionGranted(this)) {
-                    Toast.makeText(this, "Overlay permission granted", Toast.LENGTH_SHORT).show()
-                    println("Overlay permission granted")
-                } else {
-                    Toast.makeText(this, "Overlay permission not granted", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            PermissionHelper.ACCESSIBILITY_PERMISSION_REQUEST_CODE -> {
-                if (PermissionHelper.isAccessibilityServiceEnabled(this)) {
-                    Toast.makeText(this, "Accessibility permission granted", Toast.LENGTH_SHORT).show()
-                    println("Accessibility permission granted")
-                } else {
-                    Toast.makeText(this, "Accessibility permission not granted", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
     }
 
     private fun onAddButtonClicked() {

@@ -11,6 +11,8 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import androidx.core.os.postDelayed
 import cit.edu.ulysses.activities.OverlayActivity
+import cit.edu.ulysses.fragment.HomeFragment
+
 //import java.util.logging.Handler
 
 class AppMonitorAccessibilityService : AccessibilityService() {
@@ -33,24 +35,14 @@ class AppMonitorAccessibilityService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+//            HomeFragment.getInstance().updateOverallStats()
             val packageName = event.packageName?.toString() ?: ""
             val className = event.className?.toString() ?: ""
-            Log.d(TAG, "packageName: $packageName preprocessed")
-
-
-
-            // Skip system UI and launchers
-            if (isHomeScreen(packageName, className) || isSystemUI(packageName)) {
-                return
-            }
-
-            // Skip our own app's activities except for the blocked app detection
-            if (packageName == this.packageName ) {
+            if (isHomeScreen(packageName, className) || isSystemUI(packageName) || packageName == this.packageName) {
                 return
             }
 
             Log.d(TAG, "packageName: $packageName, className: $className")
-            // Check if this is a blocked app
             if (isAppMonitored(packageName)) {
                 Log.d(TAG, "Blocking app")
                 launchOverlayActivity(packageName)

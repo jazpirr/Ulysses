@@ -5,10 +5,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import cit.edu.ulysses.fragment.ScreenTimeFragment
 import cit.edu.ulysses.fragment.UnlockFragment
+import cit.edu.ulysses.fragment.NotificationsFragment
 
 class ChartPagerAdapter(
     activity: FragmentActivity,
     private val screenTimes: List<Long>,
+    private val notifications: List<Long>,
     private val unlocks: List<Long>
 ) : FragmentStateAdapter(activity) {
 
@@ -16,9 +18,9 @@ class ChartPagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ScreenTimeFragment.newInstance("Screen Time", screenTimes)
-            1 -> UnlockFragment.newInstance("Notifications", emptyList())
-            2 -> UnlockFragment.newInstance("Unlocks", unlocks)
+            0 -> ScreenTimeFragment.newInstance(screenTimes)
+            1 -> NotificationsFragment.newInstance(notifications)
+            2 -> UnlockFragment.newInstance(unlocks)
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }

@@ -4,6 +4,7 @@ import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.util.Log
+import cit.edu.ulysses.services.NotificationMonitorService
 import java.util.*
 
 class UsageStatsHelper(context: Context) {
@@ -99,27 +100,44 @@ class UsageStatsHelper(context: Context) {
         return totalScreenOnTimes
     }
 
-    fun getUnlocks(packageNames: List<String>?, startTime: Long,endTime: Long): Map<String, Long>{
-        val usageEvents = usageStatsManager.queryEvents(startTime,endTime)
+    fun getUnlocks(
+        packageNames: List<String>?,
+        startTime: Long,
+        endTime: Long
+    ): Map<String, Long> {
+        val usageEvents = usageStatsManager.queryEvents(startTime, endTime)
         val event = UsageEvents.Event()
-        var unlocks = mutableMapOf<String, Long>()
+        val unlocks = mutableMapOf<String, Long>()
         var phoneUnlocks = 0
-        while(usageEvents.hasNextEvent()){
+
+        val lastLaunchTimestamps = mutableMapOf<String, Long>()
+        val interval = 5_000L
+
+        while (usageEvents.hasNextEvent()) {
             usageEvents.getNextEvent(event)
-            when(event.eventType){
+            when (event.eventType) {
                 UsageEvents.Event.ACTIVITY_RESUMED -> {
-                    if(packageNames?.contains(event.packageName) == true || packageNames == null){
-                         unlocks[event.packageName] = (unlocks[event.packageName] ?: 0) + 1
-                     }
+                    val packageName = event.packageName
+                    val isTargetApp = packageNames == null || packageNames.contains(packageName)
+
+                    if (isTargetApp) {
+                        val lastTime = lastLaunchTimestamps[packageName] ?: 0L
+                        if (event.timeStamp - lastTime > interval) {
+                            unlocks[packageName] = (unlocks[packageName] ?: 0L) + 1
+                            lastLaunchTimestamps[packageName] = event.timeStamp
+                        }
+                    }
                 }
                 UsageEvents.Event.KEYGUARD_HIDDEN -> {
-                        phoneUnlocks++
+                    phoneUnlocks++
                 }
             }
         }
+
         unlocks["phone_unlocks"] = phoneUnlocks.toLong()
         return unlocks
     }
+
 
 
     fun formatMilliseconds(milliseconds: Long): String {
@@ -136,6 +154,10 @@ class UsageStatsHelper(context: Context) {
         }
     }
 
+    fun formatUnlocksLongToInt(milliseconds: Long): String{
+        return "Opened ${milliseconds.toInt()} times"
+    }
+
     fun getStartOfDayMillis(): Long {
         return Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 0)
@@ -147,7 +169,6 @@ class UsageStatsHelper(context: Context) {
     fun getStartAndEndTimesForWeek(): Pair<List<Long>, List<Long>> {
         val startTimes = mutableListOf<Long>()
         val endTimes = mutableListOf<Long>()
-
         val now = Calendar.getInstance()
         val calendar = Calendar.getInstance()
         calendar.firstDayOfWeek = Calendar.MONDAY
@@ -166,7 +187,6 @@ class UsageStatsHelper(context: Context) {
             endOfDay.set(Calendar.SECOND, 59)
             endOfDay.set(Calendar.MILLISECOND, 999)
 
-            // If it's today, and today isn't finished yet, cap at current time
             if (calendar.get(Calendar.YEAR) == now.get(Calendar.YEAR) &&
                 calendar.get(Calendar.DAY_OF_YEAR) == now.get(Calendar.DAY_OF_YEAR)
             ) {
@@ -175,7 +195,6 @@ class UsageStatsHelper(context: Context) {
                 endTimes.add(endOfDay.timeInMillis)
             }
 
-            // Move to next day
             calendar.add(Calendar.DATE, 1)
             calendar.set(Calendar.HOUR_OF_DAY, 0)
             calendar.set(Calendar.MINUTE, 0)
@@ -193,5 +212,32 @@ class UsageStatsHelper(context: Context) {
             set(Calendar.SECOND, 59)
             set(Calendar.MILLISECOND, 999)
         }.timeInMillis
+    }
+
+    fun getPackageNotificationCount(
+        packages: List<String>,
+        startTime: Long,
+        endTime: Long
+    ): Map<String, Long> {
+        val allCounts = NotificationMonitorService.getNotificationCountsForDay(startTime, endTime)
+        return allCounts.filterKeys { it in packages }
+    }
+
+    fun getTotalNotifications(startTime: Long, endTime: Long): Long {
+        return NotificationMonitorService.getNotificationsForDay(startTime, endTime).size.toLong()
+    }
+
+    fun getNotificationsForRanges(startTimes: List<Long>, endTimes: List<Long>): List<Long> {
+        val result = mutableListOf<Long>()
+
+        for (i in startTimes.indices) {
+            result.add(getTotalNotifications(startTimes[i], endTimes[i]))
+        }
+
+        return result
+    }
+
+    fun formatNotificationCount(count: Long): String {
+        return "$count notification${if (count == 1L) "" else "s"}"
     }
 }

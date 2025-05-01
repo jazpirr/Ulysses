@@ -15,7 +15,9 @@ object PermissionHelper {
     fun checkAndRequestPermissions(activity: Activity) {
         checkOverlayPermission(activity)
         checkAccessibilityPermission(activity)
+        checkNotificationListenerPermission(activity)
     }
+
 
     private fun checkOverlayPermission(activity: Activity) {
         if (!Settings.canDrawOverlays(activity)) {
@@ -38,7 +40,7 @@ object PermissionHelper {
         if (!isAccessibilityServiceEnabled(activity)) {
             AlertDialog.Builder(activity)
                 .setTitle("Permission Required")
-                .setMessage("Please enable 'Draw over other apps' for this app to function properly.")
+                .setMessage("Please enable Accessibility Service for this app to function properly.")
                 .setPositiveButton("Open Settings") { _, _ ->
                     val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
                     activity.startActivity(intent)
@@ -60,4 +62,27 @@ object PermissionHelper {
     fun isOverlayPermissionGranted(context: Context): Boolean {
         return Settings.canDrawOverlays(context)
     }
+
+    fun checkNotificationListenerPermission(activity: Activity) {
+        if (!isNotificationListenerEnabled(activity)) {
+            AlertDialog.Builder(activity)
+                .setTitle("Permission Required")
+                .setMessage("Please enable 'Notification access' for this app to monitor notifications.")
+                .setPositiveButton("Open Settings") { _, _ ->
+                    activity.startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
+                }
+                .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
+    }
+
+    fun isNotificationListenerEnabled(context: Context): Boolean {
+        val packageName = context.packageName
+        val flat = Settings.Secure.getString(
+            context.contentResolver,
+            "enabled_notification_listeners"
+        )
+        return flat?.contains(packageName) == true
+    }
+
 }

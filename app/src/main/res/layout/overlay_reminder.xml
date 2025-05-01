@@ -50,15 +50,6 @@
             android:textSize="16sp"
             android:text="Go Home" />
 
-        <cit.edu.ulysses.utils.ProgressButton
-            android:id="@+id/progressButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            style="@style/CustomButton"
-            android:text="Working..."
-            android:padding="16dp"/>
-
 
         <TextView
             android:id="@+id/continueButton"

@@ -15,11 +15,6 @@ class AppListStatAdapter(
     private val appList: List<AppStats>,
     context: Context
 ) : RecyclerView.Adapter<AppListStatAdapter.AppViewHolder>() {
-    private val usageStatsHelper = UsageStatsHelper(context)
-    companion object{
-        val TAG = "AppListStatAdapter"
-    }
-
     class AppViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val icon: ImageView = itemView.findViewById(R.id.app_icon)
         val name: TextView = itemView.findViewById(R.id.app_name)
@@ -35,7 +30,7 @@ class AppListStatAdapter(
         val appStat = appList[position]
 
         holder.name.text = appStat.name
-        holder.stats.text = usageStatsHelper.formatMilliseconds(appStat.statistic)
+        holder.stats.text = appStat.statistic
         holder.icon.setImageDrawable(appStat.icon)
     }
 
