@@ -30,14 +30,15 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/black">
 
                     <ImageView
                         android:id="@+id/background"
+                        android:background="@drawable/black_back"
+                        android:layout_height="200dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/background" />
+                        android:src="@drawable/black_back" />
                 </FrameLayout>
 
 
@@ -106,10 +107,12 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:clickable="false"
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email"
+                        android:focusable="false"
                         app:boxCornerRadiusTopEnd="8dp"
                         app:boxCornerRadiusTopStart="8dp"
                         app:boxCornerRadiusBottomEnd="8dp"
@@ -118,6 +121,9 @@
                         android:layout_marginTop="5dp"
                         >
                         <EditText
+                            android:clickable="false"
+                            android:editable="false"
+                            android:focusable="false"
                             style="@style/CustomEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -171,27 +177,7 @@
                             android:inputType="textPersonName|textCapWords"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:startIconDrawable="@drawable/lock"
-                        android:layout_marginTop="5dp"
-                        >
-                        <EditText
-                            style="@style/CustomEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/password_edit"
-                            android:imeOptions="actionDone"
-                            android:singleLine="true"
-                            android:inputType="textPersonName|textCapWords"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -206,23 +192,33 @@
         <Button
             style="@style/CustomButton"
             android:id="@+id/button_save"
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Save"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginBottom="5dp"/>
 
         <Button
-            style="@style/CustomButton"
             android:id="@+id/button_cancel"
-            android:layout_width="300dp"
+            style="@style/CustomButton"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
             android:text="Cancel"
             android:textColor="@color/white"
-            android:textSize="18sp"
-/>
+            android:textSize="16sp" />
+
+        <Button
+            style="@style/CustomButton"
+            android:id="@+id/btn_delete"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Delete Account"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

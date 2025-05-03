@@ -1,23 +1,21 @@
 package cit.edu.ulysses.activities
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
+import cit.edu.ulysses.fragment.ResetPasswordBottomSheet
+
 import cit.edu.ulysses.R
 import cit.edu.ulysses.app.UserApplication
 import cit.edu.ulysses.helpers.UserHelper
 import cit.edu.ulysses.utils.isNotValid
-import cit.edu.ulysses.utils.toText
 import cit.edu.ulysses.utils.toast
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
-class LoginActivity : Activity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +35,7 @@ class LoginActivity : Activity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         btnLogin.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
             val email = etUsername.text.toString()
             val password = etPassword.text.toString()
             if(etUsername.isNotValid() || etPassword.isNotValid()){
@@ -80,11 +79,19 @@ class LoginActivity : Activity() {
                     toast("Login failed: ${it.message}")
                 }
 
+
         }
 
         tvRegisterLink.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+        }
+
+        val forgot = findViewById<TextView>(R.id.forgot_pass)
+        forgot.setOnClickListener {
+            val resetPasswordBottomSheet = ResetPasswordBottomSheet()
+            resetPasswordBottomSheet.show(supportFragmentManager, resetPasswordBottomSheet.tag)
+
         }
     }
 

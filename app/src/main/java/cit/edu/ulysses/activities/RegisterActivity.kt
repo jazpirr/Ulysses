@@ -98,18 +98,19 @@ class RegisterActivity : Activity() {
                     if (user != null) {
                         val userMap = hashMapOf(
                             "username" to username,
-                            "email" to email
+                            "email" to email,
+                            "phone" to "- not set -",
+                            "dob" to "- not set -",
+                            "isVerified" to false
                         )
 
                         db.collection("users").document(user).set(userMap)
                             .addOnSuccessListener {
                                 toast("Successfully registered!")
-                                findViewById<EditText>(R.id.et_username).text.clear()
-                                findViewById<EditText>(R.id.et_pass).text.clear()
-                                findViewById<EditText>(R.id.et_pass2).text.clear()
-                                findViewById<EditText>(R.id.et_email).text.clear()
-
-                                startActivity(Intent(this, LoginActivity::class.java))
+                                val intent = Intent(this, LoginActivity::class.java)
+                                intent.putExtra("EMAIL", email)
+                                intent.putExtra("PASSWORD", password)
+                                startActivity(intent)
                             }
                             .addOnFailureListener { exception ->
                                 toast("Failed to add user data: ${exception.message}")
@@ -121,6 +122,33 @@ class RegisterActivity : Activity() {
             }
     }
 
+    private fun fetchUserData(userId: String) {
+        db.collection("users").document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val username = document.getString("username") ?: ""
+                    val email = document.getString("email") ?: ""
+                    val phone = document.getString("phone") ?: ""
+                    val dob = document.getString("dob") ?: ""
+
+                    findViewById<EditText>(R.id.et_username).setText(username)
+                    findViewById<EditText>(R.id.et_email).setText(email)
+                    findViewById<EditText>(R.id.et_pass).setText("")
+                    findViewById<EditText>(R.id.et_pass2).setText("")
+                }
+            }
+            .addOnFailureListener { exception ->
+                toast("Failed to fetch user data: ${exception.message}")
+            }
+    }
+
+    private fun clearFields() {
+        findViewById<EditText>(R.id.et_username).text.clear()
+        findViewById<EditText>(R.id.et_pass).text.clear()
+        findViewById<EditText>(R.id.et_pass2).text.clear()
+        findViewById<EditText>(R.id.et_email).text.clear()
+    }
 
     fun getFirebaseAuthErrorMessage(exception: Exception?): String {
         val message = exception?.message ?: return "Unknown error occurred."

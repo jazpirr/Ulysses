@@ -1,179 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SettingsActivity"
-    android:orientation="vertical"
-    android:isScrollContainer="true"
-    android:background="#f0f0f0">
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomButton"
+        android:paddingBottom="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:orientation="vertical">
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="32dp"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/back_icon"
-                android:drawablePadding="50dp"
-                android:layout_gravity="start"
-                />
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStartWithNavigation="0dp"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageButton
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/back_icon"
+                    android:contentDescription="Back" />
+
+                <TextView
+                    android:id="@+id/notesHeading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Settings"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/profile"
+            android:elevation="20dp"
+            app:shapeAppearanceOverlay="@style/CircleImage" />
+
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textSize="25sp"
-                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:textSize="22sp"
                 android:textColor="@color/black"
-                android:layout_marginBottom="30dp"
-                android:paddingStart="10dp"
-                />
-        </LinearLayout>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#D9D9D9"
-            android:hint="Search for a setting"
-            android:padding="10dp" />
+                android:textStyle="bold"
+                android:text="JOHN DOE"/>
 
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_gravity="center"
+                android:text="qeq797w89"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit"
+                style="@style/CustomButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:layout_gravity="center"
+                android:paddingEnd="20dp"
+                android:text="EDIT PROFILE" />
 
         <LinearLayout
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp">
-            <Button
-                android:id="@+id/btn_profile"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:background="@drawable/round_back_white">
+            <LinearLayout
+                android:id="@+id/btn_changePass"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Personal Information"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:background="@android:color/white"
-                android:drawablePadding="10dp"
-                android:padding="10dp"
-                android:drawableStart="@drawable/user"
-                />
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Password &amp; Security"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:background="@android:color/white"
-                android:drawablePadding="10dp"
-                android:padding="3dp"
-                android:drawableStart="@drawable/lock"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableStart="@drawable/outline_lock_24"
+                    android:drawablePadding="15dp"
+                    android:padding="3dp"
+                    android:text="Password &amp; Security"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/next"
+                    android:layout_gravity="center_vertical"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Appearance"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:background="@android:color/white"
-                android:drawablePadding="10dp"
-                android:padding="13dp"
-                android:drawableStart="@drawable/appearance"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notification"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:background="@android:color/white"
-                android:drawablePadding="10dp"
-                android:padding="10dp"
-                android:drawableStart="@drawable/notification"/>
+
+            </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Language &amp; Region"
-            android:textAllCaps="false"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:background="@android:color/white"
-            android:drawablePadding="10dp"
-            android:padding="10dp"
-            android:drawableStart="@drawable/language"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Help &amp; Support"
-            android:textAllCaps="false"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:background="@android:color/white"
-            android:drawablePadding="10dp"
-            android:padding="10dp"
-            android:drawableStart="@drawable/support"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
-            <Button
+            <LinearLayout
+                android:elevation="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Terms of Services"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:background="@android:color/white"
-                android:drawablePadding="10dp"
-                android:padding="7dp"
-                android:drawableStart="@drawable/terms_and_services"/>
-            <Button
-                android:id="@+id/about_dev"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="About the Developers"
-                android:textAllCaps="false"
-                android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:background="@android:color/white"
-                android:drawablePadding="10dp"
-                android:padding="10dp"
-                android:drawableStart="@drawable/about"/>
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:background="@drawable/round_back_white">
+
+                <LinearLayout
+                    android:id="@+id/btn_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableStart="@drawable/outline_report_problem_24"
+                        android:drawablePadding="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="Report a problem"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/next"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+
+                <LinearLayout
+                    android:id="@+id/btn_terms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableStart="@drawable/round_help_outline_24"
+                        android:drawablePadding="15dp"
+                        android:gravity="center_vertical"
+                        android:padding="3dp"
+                        android:text="Terms of Service"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/next"
+                        android:layout_gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:id="@+id/btn_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+                    <TextView
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/outline_info_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="About Us"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:drawablePadding="15dp"
+                        android:padding="3dp"
+                        android:gravity="center_vertical"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/next"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <!--            <LinearLayout-->
+            <!--                android:elevation="5dp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="15dp"-->
+            <!--                android:layout_marginEnd="15dp"-->
+            <!--                android:layout_marginTop="40dp"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:padding="15dp"-->
+            <!--                android:background="@drawable/round_back_white">-->
+
+            <!--                <TextView-->
+            <!--                    android:drawableLeft="@drawable/logout"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:text="Logout"-->
+            <!--                    android:textColor="@android:color/holo_red_dark"-->
+            <!--                    android:textStyle="bold"-->
+            <!--                    android:textSize="15sp"-->
+            <!--                    android:drawablePadding="15dp"-->
+            <!--                    android:padding="3dp"-->
+            <!--                    android:gravity="center"/>-->
+
+            <!--            </LinearLayout>-->
         </LinearLayout>
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Log out"
-            android:textAllCaps="false"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:textColor="@android:color/holo_red_dark"
-            android:background="@android:color/white"
-            android:drawablePadding="10dp"
-            android:padding="10dp"
-            android:drawableLeft="@drawable/logout"
-            />
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        style="@style/CustomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGOUT"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
 
 
-    </LinearLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

@@ -69,18 +69,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/text_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profile"
-                    android:layout_centerHorizontal="true"
-
-                    android:text="Username"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:elevation="21dp"/>
 
 
                 <LinearLayout
@@ -89,8 +77,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/profile"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="61dp"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="50dp"
+
 
                     android:background="@drawable/rounded_background"
                     android:elevation="10dp"
@@ -100,11 +88,35 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="211dp"
+                        android:layout_height="315dp"
                         android:layout_marginTop="90dp"
                         android:orientation="vertical"
 
                         android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Username"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/username"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="johndoe@gmail.com"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+                        </LinearLayout>
 
 
                         <View
@@ -128,7 +140,7 @@
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/email"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -159,7 +171,7 @@
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/number"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -189,7 +201,7 @@
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/dob"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -208,26 +220,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Password"
-                                android:textColor="@color/black"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/pass"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text=""
-                                android:textColor="@color/black"
-                                android:textSize="18sp" />
-                        </LinearLayout>
+                            android:orientation="horizontal" />
 
 
                     </LinearLayout>
@@ -244,11 +237,11 @@
 
         <Button
             style="@style/CustomButton"
-            android:id="@+id/button_edit"
+            android:id="@+id/btn_save"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Edit Profile"
+            android:text="Save"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_marginBottom="5dp"/>

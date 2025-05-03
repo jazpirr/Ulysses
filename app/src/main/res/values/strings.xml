@@ -6,19 +6,84 @@
     <string name="app_name">Ulysses</string>
 
     <string name="ulysses_about">
-        Ulysses is a productivity app designed to help you stay focused and committed to your goals by enforcing the Ulysses Pact—a strategy that removes distractions and strengthens accountability.
-        \n\n
+        \t\tUlysses is a productivity app designed to help you stay focused and committed to your goals by enforcing the Ulysses Pact—a strategy that removes distractions and strengthens accountability.
+        \n\n\t\t
         By using tools such as app timers, accountability partners, and task locking, Ulysses ensures you stay on track and follow through with your commitments.
     </string>
 
     <string name="ulysses_vision">
-        We believe that productivity isn’t just about doing more—it’s about doing what matters most with unwavering commitment.
+        \t\tWe believe that productivity isn’t just about doing more—it’s about doing what matters most with unwavering commitment.
         In a world full of distractions, staying focused has become a challenge, and many struggle to achieve their goals because of interruptions, procrastination, and lack of accountability.
-        \n\n
+        \n\n\t\t
         Our vision is to redefine productivity by creating an ecosystem where individuals can lock in their commitments, eliminate distractions, and achieve their full potential. We are not just developing an app; we are building a mindset—one that embraces the power of the Ulysses Pact as a tool for self-discipline and success.
         \n\n
-        Just as the ancient Greek hero Ulysses tied himself to the mast to resist temptation, our platform empowers users to pre-commit to their tasks, ensuring that their focus remains unshaken. We see a future where people no longer rely on willpower alone but instead set up systems that guarantee their success.
+        \t\tJust as the ancient Greek hero Ulysses tied himself to the mast to resist temptation, our platform empowers users to pre-commit to their tasks, ensuring that their focus remains unshaken. We see a future where people no longer rely on willpower alone but instead set up systems that guarantee their success.
     </string>
+
+    <string name="privacy_policy">
+        \t\tAt Ulysses, we are committed to protecting your privacy. This Privacy Policy outlines how we collect, use, and safeguard your personal information when you use our app and services.
+    </string>
+
+    <string name="privacy_policy2">
+        <b>Personal Information:</b> When you register an account or use certain features of the app, we collect personal information, such as your name, email address, and account details.
+        \n\n<b>Usage Data:</b> We gather anonymized data regarding your interactions with the app, including the features you use, how long you use them, session duration, and crash logs to identify bugs or errors.
+        \n\n<b>Device Information:</b> We may collect information about your device, such as the model, operating system, and unique device identifiers (e.g., Android ID, advertising ID) to ensure compatibility and improve performance.
+        \n\n<b>Location Data:</b> If you grant permission, we may collect your location information to provide location-based services or personalized experiences.
+    </string>
+    <string name="privacy_policy3">
+        To provide, maintain, and improve the app’s features and services.
+        \nTo personalize your experience within the app, such as tailoring content and features to your preferences.
+        \nTo send important communications, including app updates, notifications, and changes to this Privacy Policy.
+        \nTo monitor and analyze usage patterns, improve the app’s performance, and detect and resolve any technical issues or malfunctions.
+        \nTo provide customer support and respond to any inquiries or issues you may have with the app.
+    </string>
+
+    <string name="privacy_policy4">
+        \tWe take the security of your personal data seriously. All data you provide is stored in encrypted form using industry-standard security protocols.
+        We implement strict access controls to ensure that your information is not accessible by unauthorized parties. However, please note that no method of data transmission or storage can be
+        guaranteed 100% secure, and we cannot guarantee the absolute security of your data.
+    </string>
+    <string name="privacy_policy5">
+        <b>Accessing Your Data:</b> You can request to view the personal information we hold about you.
+        \n\n<b>Updating Your Data:</b> You can update or correct any inaccurate information.
+        \n\n<b>Deleting Your Account:</b> You may choose to delete your account at any time, and we will remove all personal information associated with it.
+        \n\n<b>Data Portability:</b> You may request to transfer your data to another service, provided this is technically feasible.
+    \n<b>Opt-Out:</b> You can opt-out of receiving promotional communications by following the unsubscribe instructions provided in the emails we send or by adjusting your preferences in the app settings.
+    </string>
+    <string name="privacy_policy6">
+        We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. When we make significant changes, we will notify you within the app or
+        via email to ensure you are aware of these changes. By continuing to use the app after such changes are made, you agree to the updated Privacy Policy.
+    </string>
+    <string name="privacy_policy7">
+        \tBy using the Ulysses app, you acknowledge that you have read, understood, and agree to this Privacy Policy. You also agree to the collection, use, and sharing of your information as described herein.
+    </string>
+
+
+    <string name="terms1">
+    \t\tPlease read these Terms and Conditions carefully before using Ulysses. By accessing or using the app, you agree to comply with these terms. If you do not agree, please refrain from using Ulysses. Your continued use signifies acceptance of these terms and any future updates.
+    </string>
+
+    <string name="terms2">
+        \tTo access certain features, you must create an account. During the registration process, you will be asked to provide personal information such as your name, email address, and a password. You are responsible for maintaining the confidentiality of your login details, including your
+        username and password. You agree to notify us immediately of any unauthorized use of your account. By creating an account, you consent to the collection and use of your personal information as outlined in our Privacy Policy.
+    </string>
+    <string name="terms3">
+    \tYou agree to use the app only for its intended purpose and in compliance with applicable laws and regulations. You are responsible for any activity under your account and must ensure that your use of
+        the app does not violate the rights of any third parties. You must not interfere with the app’s functionality, engage in harmful activities, or attempt to bypass any security measures implemented in
+        the app. Any misuse or violation of the app\'s policies may lead to termination of your access.
+    </string>
+    <string name="terms4">
+    \tWe value your privacy and are committed to protecting your personal data. Our Privacy Policy explains how we collect, use, and protect your personal information. By using the app, you consent to the data
+        practices described in the Privacy Policy, including the collection and storage of your data for providing personalized experiences. We encourage you to review the Privacy Policy carefully to understand
+        how your data is handled and how we protect your privacy.
+    </string>
+    <string name="terms5">
+    \tWe may modify, update, or discontinue certain features of the app at any time. We also reserve the right to update these Terms and Conditions periodically. If any changes are made, we will notify you through
+        the app or by other appropriate means. Your continued use of the app after any changes to these terms indicates your acceptance of those changes. It is your responsibility to review these terms periodically
+        to stay informed of any updates.
+    </string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Strings used for fragments for navigation -->
@@ -26,6 +91,17 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
+    <string name="jive">
+    \t\tJive Tyler Revalde is a 20-year-old college student passionate about programming, problem-solving, and continuous learning. With a strong interest in technology, they enjoy working on coding projects, exploring different programming languages, and understanding how things work at a deeper level.
+    \n\n\t\tOutside of academics, they have a variety of hobbies that keep them engaged. They love playing the guitar, challenging themselves with chess, and learning new languages. In their free time, they also enjoy watching anime and playing video games as a way to unwind.Always curious and eager to improve, they seek to refine their skills in software development, data structures, and algorithmic thinking. Whether it’s debugging a tricky piece of code or strategizing a chess game, they enjoy solving problems and pushing themselves to grow.
+    </string>
+
+    <string name="jazpher">
+    \t\tJazpher Quirante is a college student navigating the challenges of academics while balancing personal interests and hobbies. They are passionate about learning new things, whether it’s exploring different fields of study, picking up new skills, or staying updated with the latest technology.
+    \n\n\t\tOutside of classes, they enjoy playing video games, watching movies and anime, and spending time with friends. They also have an interest in music and occasionally play the guitar in their free time. A problem-solver at heart, they enjoy working on projects that challenge their thinking and creativity. Whether it\'s coding, brainstorming new ideas, or simply figuring out how to stay productive, they are always looking for ways to improve.
+    </string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
