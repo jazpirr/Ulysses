@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         btnLogin.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
             val email = etUsername.text.toString()
             val password = etPassword.text.toString()
             if(etUsername.isNotValid() || etPassword.isNotValid()){
