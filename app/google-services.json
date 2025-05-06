@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "43150915007",
-    "project_id": "ulysses---final",
-    "storage_bucket": "ulysses---final.firebasestorage.app"
+    "project_number": "452593555738",
+    "project_id": "ulysses-9c617",
+    "storage_bucket": "ulysses-9c617.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:43150915007:android:52dcdb4c2562f9c7341d0a",
+        "mobilesdk_app_id": "1:452593555738:android:83b4c774d552e3afaa74a3",
         "android_client_info": {
           "package_name": "cit.edu.ulysses"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDj6pj2Q0vat3OZ4HqPpw6MSZ-9-i4OdNg"
+          "current_key": "AIzaSyC4-endhgA0fhBzL1qbU1tLKwtI6SCsUVc"
         }
       ],
       "services": {
