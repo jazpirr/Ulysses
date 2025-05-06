@@ -7,16 +7,21 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.WriteBatch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class NotificationDBHelper(context: Context) : SQLiteOpenHelper(
-    context,
+class NotificationDBHelper(private val ctx: Context) : SQLiteOpenHelper(
+    ctx,
     DATABASE_NAME,
     null,
     DATABASE_VERSION
-) {
+)
+{
 
     private val firestore = FirebaseFirestore.getInstance()
-
+    private var lastSyncedTimestamp: Long = 0L
     override fun onCreate(db: SQLiteDatabase) {
         val createTable = """
             CREATE TABLE $TABLE_NAME (
@@ -26,6 +31,9 @@ class NotificationDBHelper(context: Context) : SQLiteOpenHelper(
             );
         """
         db.execSQL(createTable)
+
+        val createIndex = "CREATE INDEX idx_timestamp ON $TABLE_NAME($COLUMN_TIMESTAMP);"
+        db.execSQL(createIndex)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -41,6 +49,23 @@ class NotificationDBHelper(context: Context) : SQLiteOpenHelper(
         }
         db.insert(TABLE_NAME, null, values)
         db.close()
+    }
+
+    fun insertNotificationIfNotExists(entry: NotificationEntry) {
+        val db = readableDatabase
+        val cursor = db.query(
+            TABLE_NAME,
+            arrayOf(COLUMN_ID),
+            "$COLUMN_PACKAGE = ? AND $COLUMN_TIMESTAMP = ?",
+            arrayOf(entry.packageName, entry.timestamp.toString()),
+            null, null, null
+        )
+        val exists = cursor.moveToFirst()
+        cursor.close()
+
+        if (!exists) {
+            insertNotification(entry)
+        }
     }
 
     fun getAllNotifications(): List<NotificationEntry> {
@@ -65,40 +90,65 @@ class NotificationDBHelper(context: Context) : SQLiteOpenHelper(
         db.close()
         return notifications
     }
+    private fun getLastSyncedTimestamp(context: Context): Long {
+        val prefs = context.getSharedPreferences("sync_prefs", Context.MODE_PRIVATE)
+        return prefs.getLong("last_synced_timestamp", 0L)
+    }
+
+    private fun setLastSyncedTimestamp(context: Context, timestamp: Long) {
+        val prefs = context.getSharedPreferences("sync_prefs", Context.MODE_PRIVATE)
+        prefs.edit().putLong("last_synced_timestamp", timestamp).apply()
+    }
 
     fun syncToFirebase() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val db = FirebaseFirestore.getInstance()
-        val notifications = getAllNotifications()
 
-        for (entry in notifications) {
-            val entryMap = mapOf(
-                "packageName" to entry.packageName,
-                "timestamp" to entry.timestamp,
-            )
-            db.collection("users").document(userId)
-                .collection("notifications")
-                .document("${entry.timestamp}_${entry.packageName}") // Use composite key
-                .set(entryMap)
+        val lastSynced = getLastSyncedTimestamp(ctx)
+        val unsynced = getAllNotifications().filter { it.timestamp > lastSynced }
+
+        if (unsynced.isEmpty()) return
+
+        val batch = firestore.batch()
+        val userCollection = firestore.collection("users").document(userId).collection("notifications")
+
+        var latestSynced = lastSynced
+
+        for (entry in unsynced) {
+            val entryMap = mapOf("packageName" to entry.packageName, "timestamp" to entry.timestamp)
+            val docRef = userCollection.document("${entry.timestamp}_${entry.packageName}")
+            batch.set(docRef, entryMap)
+            if (entry.timestamp > latestSynced) latestSynced = entry.timestamp
         }
+
+        batch.commit()
+            .addOnSuccessListener {
+                setLastSyncedTimestamp(ctx, latestSynced)
+                Log.d("FirebaseSync", "Synced ${unsynced.size} entries.")
+            }
+            .addOnFailureListener {
+                Log.e("FirebaseSync", "Sync failed: ${it.message}")
+            }
     }
+
+
 
     fun syncFromFirebase(onComplete: () -> Unit) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return onComplete()
-        val db = FirebaseFirestore.getInstance()
-        db.collection("users").document(userId).collection("notifications")
+
+        firestore.collection("users").document(userId).collection("notifications")
             .get()
             .addOnSuccessListener { documents ->
-                val entries = documents.map { doc ->
-                    NotificationEntry(
-                        packageName = doc.getString("packageName") ?: "",
-                        timestamp = doc.getLong("timestamp") ?: 0L,
-                        id = null,
-                        userId = userId
-                    )
+                val entries = documents.mapNotNull { doc ->
+                    val pkg = doc.getString("packageName")
+                    val ts = doc.getLong("timestamp")
+                    if (pkg != null && ts != null) {
+                        NotificationEntry(pkg, ts, null, userId)
+                    } else null
                 }
+
                 val dbWritable = writableDatabase
-                dbWritable.execSQL("DELETE FROM $TABLE_NAME") // Clear existing
+                dbWritable.execSQL("DELETE FROM $TABLE_NAME")
+
                 for (entry in entries) {
                     val values = ContentValues().apply {
                         put(COLUMN_PACKAGE, entry.packageName)
@@ -106,32 +156,14 @@ class NotificationDBHelper(context: Context) : SQLiteOpenHelper(
                     }
                     dbWritable.insert(TABLE_NAME, null, values)
                 }
+
                 dbWritable.close()
                 onComplete()
             }
             .addOnFailureListener {
+                Log.e("FirebaseSync", "Sync from Firebase failed: ${it.message}")
                 onComplete()
             }
-    }
-
-
-    // Prevent duplicate inserts by checking for existing timestamp + package
-     fun insertNotificationIfNotExists(entry: NotificationEntry) {
-        val db = readableDatabase
-        val cursor = db.query(
-            TABLE_NAME,
-            arrayOf(COLUMN_ID),
-            "$COLUMN_PACKAGE = ? AND $COLUMN_TIMESTAMP = ?",
-            arrayOf(entry.packageName, entry.timestamp.toString()),
-            null, null, null
-        )
-        val exists = cursor.moveToFirst()
-        cursor.close()
-
-        if (!exists) {
-            insertNotification(entry)
-        }
-        db.close()
     }
 
     companion object {
@@ -142,7 +174,6 @@ class NotificationDBHelper(context: Context) : SQLiteOpenHelper(
         const val COLUMN_ID = "id"
         const val COLUMN_PACKAGE = "packageName"
         const val COLUMN_TIMESTAMP = "timestamp"
-
-        const val FIREBASE_COLLECTION = "notifications"
+        
     }
 }
