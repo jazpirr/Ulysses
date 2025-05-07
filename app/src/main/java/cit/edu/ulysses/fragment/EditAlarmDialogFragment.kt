@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import cit.edu.ulysses.R
 import cit.edu.ulysses.data.Alarm
-import cit.edu.ulysses.alarm.AlarmReceiver
+import cit.edu.ulysses.alarm.MathAlarmActivity
 import cit.edu.ulysses.databinding.ActivityEditAlarmBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -162,10 +162,18 @@ class EditAlarmDialogFragment : DialogFragment() {
     @SuppressLint("ScheduleExactAlarm")
     private fun scheduleAlarm(context: Context, alarm: Alarm) {
         val alarmManager: AlarmManager = context.getSystemService(AlarmManager::class.java)
-        val intent = Intent(context, AlarmReceiver::class.java).apply {
+        val intent = Intent(context, MathAlarmActivity::class.java).apply {
             putExtra("alarmLabel", alarm.Label)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+            addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT)
+            addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+            addFlags(Intent.FLAG_GRANT_PREFIX_URI_PERMISSION)
+
         }
-        val pendingIntent = PendingIntent.getBroadcast(
+        
+        val pendingIntent = PendingIntent.getActivity(
             context,
             (alarm.Hour.toInt() * 100) + alarm.Minute.toInt(),
             intent,
@@ -176,6 +184,11 @@ class EditAlarmDialogFragment : DialogFragment() {
             set(Calendar.HOUR_OF_DAY, alarm.Hour.toInt())
             set(Calendar.MINUTE, alarm.Minute.toInt())
             set(Calendar.SECOND, 0)
+            
+            // If the time has already passed today, set it for tomorrow
+            if (timeInMillis <= System.currentTimeMillis()) {
+                add(Calendar.DAY_OF_YEAR, 1)
+            }
         }
 
         if (alarm.On) {
