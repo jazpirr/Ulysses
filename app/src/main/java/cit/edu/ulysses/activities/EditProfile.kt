@@ -138,7 +138,7 @@ class EditProfile : AppCompatActivity() {
 
     private fun showDatePicker() {
         val dateDialog = DatePickerDialog(
-            this, R.style.Base_Theme_Ulysses,
+            this,
             { _, year: Int, month: Int, day: Int ->
                 calendar.set(year, month, day)
                 val selectedDate = Calendar.getInstance()
@@ -152,7 +152,8 @@ class EditProfile : AppCompatActivity() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
 
-        dateDialog.window?.setBackgroundDrawableResource(android.R.color.black)
+        dateDialog.window?.setBackgroundDrawableResource(R.color.gray)
+
         dateDialog.show()
     }
 }

@@ -2,6 +2,7 @@ package cit.edu.ulysses.fragment
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -19,28 +20,11 @@ class UpdateNoteDialogFragment(
     private var _binding: DialogUpdateNoteBinding? = null
     private val binding get() = _binding!!
 
-    // val db = NotesHelper(requireContext()) 
     private val db = FirebaseFirestore.getInstance()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogUpdateNoteBinding.inflate(LayoutInflater.from(context))
-
-        // val note = db.getNoteByID(noteId) 
-
-        db.collection("notes").document(noteId).get()
-            .addOnSuccessListener { doc ->
-                val note = doc.toObject(Note::class.java)
-                if (note != null && note.userId == userId) {
-                    binding.updateTitleEditText.setText(note.title)
-                    binding.updateContentEditText.setText(note.content)
-                }
-            }
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(binding.root)
-            .setCancelable(true)
-            .create()
 
         binding.updateSaveButton.setOnClickListener {
             val newTitle = binding.updateTitleEditText.text.toString().trim()
@@ -51,27 +35,33 @@ class UpdateNoteDialogFragment(
                 return@setOnClickListener
             }
 
-            // db.updateNote(Note(noteId, newTitle, newContent))
-
             val updatedNote = mapOf(
                 "title" to newTitle,
                 "content" to newContent
             )
-            db.collection("notes").document(noteId).update(updatedNote)
-                .addOnSuccessListener {
-                    onNoteUpdated()
-                    dismiss()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Failed to update note", Toast.LENGTH_SHORT).show()
-                }
+            userId?.let { uid ->
+                db.collection("users")
+                    .document(uid)
+                    .collection("notes")
+                    .document(noteId)
+                    .update(updatedNote)
+                    .addOnSuccessListener {
+                        onNoteUpdated()
+                        dismiss()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("UpdateNoteDialog", "Failed to update note", e)
+                        Toast.makeText(requireContext(), "Failed to update note: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
 
         binding.btnOK.setOnClickListener {
             dismiss()
         }
-
-        return dialog
+        return AlertDialog.Builder(requireContext())
+            .setView(binding.root)
+            .create()
     }
 
     override fun onStart() {
@@ -80,6 +70,28 @@ class UpdateNoteDialogFragment(
             (resources.displayMetrics.widthPixels * 0.90).toInt(),
             (resources.displayMetrics.heightPixels * 0.85).toInt()
         )
+
+        Log.d("UpdateNoteDialog", "Fetching note: $noteId for user: $userId")
+
+        userId?.let { uid ->
+            db.collection("users")
+                .document(uid)
+                .collection("notes")
+                .document(noteId)
+                .get()
+                .addOnSuccessListener { doc ->
+                    val note = doc.toObject(Note::class.java)
+                    if (note != null) {
+                        binding.updateTitleEditText.setText(note.title)
+                        binding.updateContentEditText.setText(note.content)
+                    } else {
+                        Log.e("UpdateNoteDialog", "Note is null or not owned by user.")
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e("UpdateNoteDialog", "Failed to fetch note", e)
+                }
+        }
     }
 
     override fun onDestroyView() {

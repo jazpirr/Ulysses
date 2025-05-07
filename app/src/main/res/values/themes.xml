@@ -55,6 +55,7 @@
         <item name="android:background">@drawable/rounded_outline</item>
     </style>
 
+
     <!-- Base application theme. -->
     <style name="Base.Theme.Ulysses" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary colors -->
@@ -85,6 +86,8 @@
         <item name="buttonStyle">@style/CustomButton</item>
         <item name="android:textViewStyle">@style/TextView.Black</item>
     </style>
+
+
 
 
 
