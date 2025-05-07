@@ -7,6 +7,7 @@ import android.content.Intent
 import android.provider.Settings
 import android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION
 import androidx.core.net.toUri
+import cit.edu.ulysses.R
 
 object PermissionHelper {
     const val OVERLAY_PERMISSION_REQUEST_CODE = 1001
@@ -21,7 +22,7 @@ object PermissionHelper {
 
     private fun checkOverlayPermission(activity: Activity) {
         if (!Settings.canDrawOverlays(activity)) {
-            AlertDialog.Builder(activity)
+            val dialog = AlertDialog.Builder(activity)
                 .setTitle("Permission Required")
                 .setMessage("Please enable 'Draw over other apps' for this app to function properly.")
                 .setPositiveButton("Open Settings") { _, _ ->
@@ -32,13 +33,26 @@ object PermissionHelper {
                     activity.startActivity(intent)
                 }
                 .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-                .show()
+                .create()
+
+            dialog.setOnShowListener {
+                dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_background)
+
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.apply {
+                    setBackgroundColor(activity.getColor(R.color.black))
+                    setTextColor(activity.getColor(R.color.white))
+                }
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.apply {
+                    setTextColor(activity.getColor(R.color.black))
+                }
+            }
+            dialog.show()
         }
     }
 
     private fun checkAccessibilityPermission(activity: Activity) {
         if (!isAccessibilityServiceEnabled(activity)) {
-            AlertDialog.Builder(activity)
+            val dialog = AlertDialog.Builder(activity)
                 .setTitle("Permission Required")
                 .setMessage("Please enable Accessibility Service for this app to function properly.")
                 .setPositiveButton("Open Settings") { _, _ ->
@@ -46,7 +60,21 @@ object PermissionHelper {
                     activity.startActivity(intent)
                 }
                 .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-                .show()
+                .create()
+
+            dialog.setOnShowListener {
+                dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_background)
+
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.apply {
+                    setBackgroundColor(activity.getColor(R.color.black))
+                    setTextColor(activity.getColor(R.color.white))
+                }
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.apply {
+                    setTextColor(activity.getColor(R.color.black))
+                }
+            }
+
+            dialog.show()
         }
     }
 
@@ -65,14 +93,26 @@ object PermissionHelper {
 
     fun checkNotificationListenerPermission(activity: Activity) {
         if (!isNotificationListenerEnabled(activity)) {
-            AlertDialog.Builder(activity)
+            val dialog = AlertDialog.Builder(activity)
                 .setTitle("Permission Required")
                 .setMessage("Please enable 'Notification access' for this app to monitor notifications.")
                 .setPositiveButton("Open Settings") { _, _ ->
                     activity.startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                 }
                 .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-                .show()
+                .create()
+            dialog.setOnShowListener {
+                dialog.window?.setBackgroundDrawableResource(R.drawable.rounded_background)
+
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.apply {
+                    setBackgroundColor(activity.getColor(R.color.black))
+                    setTextColor(activity.getColor(R.color.white))
+                }
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.apply {
+                    setTextColor(activity.getColor(R.color.black))
+                }
+            }
+            dialog.show()
         }
     }
 
