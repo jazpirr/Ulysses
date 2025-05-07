@@ -1,38 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.TimeoutFragment"
-    android:background="#f0f0f0">
+    android:padding="15dp"
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="20dp"
         >
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="Time out"
+            android:textSize="30sp" />
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/darkgray"
             android:text="You can turn off timeout Screen and set when it should activate, allowing you to use it on a schedule." />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switch_timeout"
+        <LinearLayout
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:checked="false"
-            app:track="@drawable/track_toggle"
-            android:text="Timeout Screen" />
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@drawable/round_back_white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableStart="@drawable/outline_lock_24"
+                    android:drawablePadding="15dp"
+                    android:padding="3dp"
+                    android:text="Screen Time Out"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/toggle_timeout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:track="@drawable/track_toggle"
+                    android:layout_weight="0" />
+
+
+            </LinearLayout>
+        </LinearLayout>
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
@@ -41,19 +75,47 @@
             android:textSize="18sp"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:paddingBottom="5dp"/>
+            android:textStyle="bold" />
 
-
-        <Button
-            android:id="@+id/btn_add_apps"
+        <LinearLayout
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:text="Add apps"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:background="@drawable/round_back_white">
+            <LinearLayout
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableStart="@drawable/outline_lock_24"
+                    android:drawablePadding="15dp"
+                    android:padding="3dp"
+                    android:text="Add apps"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/next"
+                    android:layout_gravity="center_vertical"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -65,49 +127,84 @@
             android:textStyle="bold"
             android:paddingBottom="5dp"/>
 
-        <Button
+        <LinearLayout
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:text="Customize lockscreen"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:background="@drawable/round_back_white">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:text="Set reminder"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
+            <LinearLayout
+                android:id="@+id/btn_access_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Access Time "
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:paddingBottom="5dp"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableStart="@drawable/outline_report_problem_24"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:padding="3dp"
+                    android:text="Access Time"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            android:text="After opening a distracting app, it will be accessible for a specific period without displaying the Timeout Screen." />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/next"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray" />
 
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:text="Set access time"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/black" />
+            <LinearLayout
+                android:id="@+id/btn_lock_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableStart="@drawable/round_help_outline_24"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:padding="3dp"
+                    android:text="Lock Duration"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/next"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

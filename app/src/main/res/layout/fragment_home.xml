@@ -4,66 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     tools:context=".fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
                     android:text="Activity details"
-                    android:textSize="30sp"
-                    android:paddingVertical="10dp"/>
+                    android:textSize="30sp" />
 
 
                 <TextView
                     android:id="@+id/totalTimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text=""
-                    android:textSize="30sp"
-                    android:layout_gravity="center" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Overall screen time"
-                    android:textSize="18sp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="Overall screen time"
+                    android:textSize="18sp" />
+
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
+                    style="@style/CustomTabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_outline_flat_bottom"
-                    style="@style/CustomTabLayout"
-                    app:tabMode="fixed"
-                    app:tabGravity="fill"/>
+                    app:tabGravity="fill"
+                    app:tabMode="fixed" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
@@ -71,7 +63,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_outline_flat_top"
-                    android:padding="8dp"/>
+                    android:padding="8dp" />
 
                 <TextView
                     android:id="@+id/statisticsTitle"
@@ -84,11 +76,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="8dp"
-                    android:padding="10dp"
+                    android:background="@drawable/rounded_outline_gray_background"
                     android:backgroundTint="@color/black"
-                    android:background="@drawable/rounded_outline_gray_background">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -101,16 +93,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
                             android:text="0"
+                            android:textColor="@color/white"
                             android:textSize="28sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:textColor="@color/white"
                             android:text="Open attempts"
+                            android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -125,16 +117,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:textColor="@color/white"
                             android:text="0"
+                            android:textColor="@color/white"
                             android:textSize="28sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:textColor="@color/white"
                             android:text="Prevention"
+                            android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
 
@@ -146,9 +138,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:padding="10dp"
+                    android:background="@drawable/rounded_outline"
                     android:backgroundTint="@color/gray"
-                    android:background="@drawable/rounded_outline"/>
+                    android:padding="10dp" />
 
             </LinearLayout>
         </ScrollView>

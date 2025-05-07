@@ -53,12 +53,6 @@ class HomeFragment : Fragment() {
         usageStatsHelper = UsageStatsHelper(requireContext())
         startTime = usageStatsHelper.getStartOfDayMillis()
         endTime = usageStatsHelper.getEndOfDayMillis()
-        val toolbar: Toolbar = view.findViewById(R.id.toolbar)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = "Overview"
-            toolbar.subtitle = ""
-        }
 
         tvTotalTime = view.findViewById(R.id.totalTimeText)
         tvSubtitle = view.findViewById(R.id.subtitle)
@@ -87,8 +81,7 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = AppListStatAdapter(appList, requireContext())
         recyclerView.adapter = adapter
-        
-        // Add item animation
+
         val itemAnimator = DefaultItemAnimator().apply {
             addDuration = 300
             removeDuration = 300

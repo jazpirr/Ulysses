@@ -7,15 +7,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 object GifUtils {
-    fun loadGif(context: Context, imageView: ImageView, gifUrl: String) {
-        Glide.with(context)
-            .asGif()
-            .load(gifUrl)
-            .apply(RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop())
-            .into(imageView)
-    }
 
     fun loadGifFromResource(context: Context, imageView: ImageView, resourceId: Int) {
         Glide.with(context)

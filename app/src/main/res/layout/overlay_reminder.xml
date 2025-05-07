@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/titleTextView"
+        android:id="@+id/gifImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/heart_hollow"
@@ -22,15 +23,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:textStyle="bold"
         android:gravity="center"
         android:text="You've chosen to limit your time on this app."
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/buttonsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/gifImage" />
+    <TextView
+        android:id="@+id/countdownTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ends in 00:00:00"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/messageTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
 
     <LinearLayout
         android:id="@+id/buttonsLayout"
@@ -44,19 +56,19 @@
 
         <Button
             android:id="@+id/homeButton"
+            style="@style/CustomButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/CustomButton"
-            android:textSize="16sp"
-            android:text="Go Home" />
+            android:text="Go Home"
+            android:textSize="16sp" />
 
 
         <TextView
             android:id="@+id/continueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Emergency"
             android:layout_margin="8dp"
+            android:text="Emergency"
             android:textSize="14sp"
             android:visibility="visible" />
     </LinearLayout>

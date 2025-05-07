@@ -11,7 +11,7 @@ class IntroFragment2 : Fragment(R.layout.fragment_intro2) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val gifView = view.findViewById<ImageView>(R.id.gifImage)
-        // Load GIF from resources
+
         GifUtils.loadGifFromResource(requireContext(), gifView, R.raw.ares)
     }
 }

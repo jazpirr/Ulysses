@@ -44,6 +44,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.bottomNavigation.background = null

@@ -15,7 +15,6 @@ class IntroFragment3 : Fragment(R.layout.fragment_intro3) {
         super.onViewCreated(view, savedInstanceState)
         
         val gifView = view.findViewById<ImageView>(R.id.gifImage)
-        // Load GIF from resources
         GifUtils.loadGifFromResource(requireContext(), gifView, R.raw.sunrise)
         
         view.findViewById<Button>(R.id.button_get_started).setOnClickListener {

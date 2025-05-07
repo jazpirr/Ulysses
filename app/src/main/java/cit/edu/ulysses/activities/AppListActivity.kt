@@ -64,7 +64,6 @@ class AppListActivity : AppCompatActivity() {
                 val name = pm.getApplicationLabel(app).toString()
                 val icon = pm.getApplicationIcon(app)
                 val packageName = app.packageName
-                println("App name: $name - $packageName")
                 appList.add(AppData(name, icon, packageName))
                 filteredAppList.add(AppData(name, icon, packageName))
         }

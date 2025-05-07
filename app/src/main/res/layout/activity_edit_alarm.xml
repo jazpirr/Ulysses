@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="@drawable/dialog_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".alarm.EditAlarm"
+    android:layout_height="wrap_content"
     android:layout_margin="20dp">
 
     <TextView
@@ -165,9 +164,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/black"
+        android:background="@drawable/rounded_outline"
         android:layout_margin="20dp"
         android:text="Cancel"
+        android:textColor="@color/black"
         tools:ignore="HardcodedText" />
 
     <com.google.android.material.button.MaterialButton
@@ -177,6 +177,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="20dp"
+        style="@style/CustomButton"
         android:backgroundTint="@color/black"
         android:text="OK"
         tools:ignore="HardcodedText" />

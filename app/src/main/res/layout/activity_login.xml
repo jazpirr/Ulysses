@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -9,23 +10,31 @@
     android:padding="16dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="384dp"
-        android:contentDescription="@string/ulysses_logo"
-        android:scaleType="fitXY"
-        android:src="@drawable/ulysses" />
-
-    <TextView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:text="Welcome!"
-        android:layout_marginBottom="10dp" />
+        android:contentDescription="@string/ulysses_logo"
+        android:src="@drawable/ulysses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
 
     <!-- Username -->
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="418dp"
+        android:text="Welcome!"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
     <EditText
-        style="@style/CustomEditText"
         android:id="@+id/etUsername"
+        style="@style/CustomEditText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -33,54 +42,66 @@
         android:autofillHints="emailAddress"
         android:hint="@string/email_address"
         android:imeOptions="actionDone"
-        android:singleLine="true" />
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
-        style="@style/CustomEditText"
         android:id="@+id/etPassword"
+        style="@style/CustomEditText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="8dp"
+        android:layout_marginTop="10dp"
         android:autofillHints="emailAddress"
         android:hint="@string/password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
-        android:singleLine="true" />
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
+        style="@style/CustomButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:textSize="16sp"
         android:text="@string/log_in"
-        style="@style/CustomButton" />
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <LinearLayout
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvRegisterLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:layout_gravity="start"
-            android:text="@string/new_to_ulysses" />
+            android:text="@string/new_to_ulysses"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/forgot_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/black"
-            android:textAlignment="gravity"
             android:layout_marginStart="10dp"
-            android:text="@string/forgot_password" />
+            android:gravity="end"
+            android:text="@string/forgot_password"
+            android:textAlignment="gravity"
+            android:textColor="@color/black" />
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
