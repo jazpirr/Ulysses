@@ -53,18 +53,18 @@ class MathAlarmActivity : AppCompatActivity() {
 
         when (currentOperation) {
             "+" -> {
-                currentNum1 = random.nextInt(1, 20)
-                currentNum2 = random.nextInt(1, 20)
+                currentNum1 = random.nextInt(1, 100)
+                currentNum2 = random.nextInt(1, 150)
             }
             "-" -> {
-                val a = random.nextInt(1, 20)
-                val b = random.nextInt(1, 20)
+                val a = random.nextInt(1, 50)
+                val b = random.nextInt(1, 50)
                 currentNum1 = maxOf(a, b)
                 currentNum2 = minOf(a, b)
             }
             "×" -> {
-                currentNum1 = random.nextInt(1, 12)
-                currentNum2 = random.nextInt(1, 12)
+                currentNum1 = random.nextInt(1, 15)
+                currentNum2 = random.nextInt(1, 15)
             }
         }
 
@@ -110,9 +110,15 @@ class MathAlarmActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (mediaPlayer.isPlaying) {
-            mediaPlayer.stop()
+        try {
+            if (::mediaPlayer.isInitialized) {
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.stop()
+                }
+                mediaPlayer.release()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        mediaPlayer.release()
     }
 }

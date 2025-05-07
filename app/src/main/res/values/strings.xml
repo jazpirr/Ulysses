@@ -149,4 +149,5 @@
     <string name="email_address">Email Address</string>
     <string name="username">Username</string>
     <string name="toggle_apps_to_monitor_and_set_time_limits">Toggle apps to monitor and set time limits</string>
+    <string name="commitWarning">"\n            By pressing COMMIT, you agree to be fully bound by your chosen settings and acknowledge that changes cannot be made until the lock period ends.\n\n            This feature is based on the Ulysses Pact—a self-imposed commitment to prevent impulsive changes and ensure you follow through on your intentions. This may include screen time limits, app blocks, or productivity rules.\n\n            Please proceed only if you are certain and ready to uphold your choices for the specified lock duration.\n        "</string>
 </resources>

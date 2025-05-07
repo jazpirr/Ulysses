@@ -5,78 +5,63 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.TimeoutFragment"
-    android:padding="15dp"
-    android:orientation="vertical">
 
+    android:padding="15dp">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        >
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
             android:text="Time out"
             android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/settingsLock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingVertical="10dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/darkgray"
-            android:text="You can turn off timeout Screen and set when it should activate, allowing you to use it on a schedule." />
-
-        <LinearLayout
-            android:elevation="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:background="@drawable/round_back_white">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:drawableStart="@drawable/outline_lock_24"
-                    android:drawablePadding="15dp"
-                    android:padding="3dp"
-                    android:text="Screen Time Out"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:gravity="center_vertical"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
+            android:text="You can turn off timeout Screen and set when it should activate, allowing you to use it on a schedule."
+            android:textColor="@color/darkgray" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Configured Apps "
-            android:textSize="18sp"
             android:layout_marginTop="10dp"
+            android:text="Configured Apps "
             android:textColor="@color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/round_back_white"
+            android:elevation="5dp"
             android:orientation="horizontal"
-            android:padding="15dp"
-            android:background="@drawable/round_back_white">
+            android:padding="15dp">
+
             <LinearLayout
                 android:id="@+id/btn_add"
                 android:layout_width="match_parent"
@@ -86,62 +71,60 @@
                 android:focusable="true">
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:drawableStart="@drawable/outline_lock_24"
                     android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
                     android:padding="3dp"
                     android:text="Add apps"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:gravity="center_vertical"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/next"
-                    android:layout_gravity="center_vertical"/>
-
-
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/next" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Timeout Experience"
-            android:textSize="18sp"
             android:layout_marginTop="20dp"
+            android:paddingBottom="5dp"
+            android:text="Timeout Experience"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:paddingBottom="5dp"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/round_back_white"
+            android:elevation="5dp"
             android:orientation="vertical"
-            android:padding="15dp"
-            android:background="@drawable/round_back_white">
+            android:padding="15dp">
 
             <LinearLayout
                 android:id="@+id/btn_access_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackground">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:drawableStart="@drawable/outline_report_problem_24"
                     android:drawablePadding="15dp"
                     android:gravity="center_vertical"
@@ -154,32 +137,31 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/next"
-                    android:layout_gravity="center_vertical"/>
-
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/next" />
             </LinearLayout>
 
             <View
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:background="@color/gray" />
-
 
             <LinearLayout
                 android:id="@+id/btn_lock_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackground">
+                android:orientation="horizontal">
+
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_weight="1"
                     android:drawableStart="@drawable/round_help_outline_24"
                     android:drawablePadding="15dp"
                     android:gravity="center_vertical"
@@ -192,18 +174,18 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/next"
-                    android:layout_gravity="center_vertical"/>
-
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/next" />
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
+
     <Button
-        style="@style/CustomButton"
         android:id="@+id/btn_commit"
-        android:layout_alignParentBottom="true"
+        style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Commit"/>
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="15dp"
+        android:text="Commit" />
 </RelativeLayout>

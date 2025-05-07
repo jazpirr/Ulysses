@@ -18,6 +18,16 @@ class AppMonitorAccessibilityService : AccessibilityService() {
         private val launchTasks = mutableMapOf<String, Runnable>()
         private val usageStates = mutableMapOf<String, AppUsageState>()
         fun getInstance(): AppMonitorAccessibilityService? = instance
+
+        fun getOpenAttempts(context: android.content.Context): Int {
+            return context.getSharedPreferences("appStats", MODE_PRIVATE)
+                .getInt("open_attempts", 0)
+        }
+
+        fun getPreventions(context: android.content.Context): Int {
+            return context.getSharedPreferences("appStats", MODE_PRIVATE)
+                .getInt("preventions", 0)
+        }
     }
 
     private var currentForegroundApp: String? = null
@@ -57,8 +67,11 @@ class AppMonitorAccessibilityService : AccessibilityService() {
         val durationSeconds = getOverlayDelaySeconds()
         val usageState = usageStates.getOrPut(packageName) { AppUsageState() }
 
+        incrementOpenAttempts()
+
         if (durationSeconds == 0) {
             launchOverlayActivity(packageName)
+            incrementPreventions()
             return
         }
 
@@ -66,6 +79,7 @@ class AppMonitorAccessibilityService : AccessibilityService() {
         
         if (remainingTime <= 0) {
             launchOverlayActivity(packageName)
+            incrementPreventions()
             usageState.reset()
         } else {
             startCountdown(packageName, remainingTime)
@@ -165,6 +179,22 @@ class AppMonitorAccessibilityService : AccessibilityService() {
         } catch (e: Exception) {
             Log.e(TAG, "Error getting app name: ${e.message}")
             packageName
+        }
+    }
+
+    private fun incrementOpenAttempts() {
+        val prefs = getSharedPreferences("appStats", MODE_PRIVATE)
+        val currentAttempts = prefs.getInt("open_attempts", 0)
+        prefs.edit {
+            putInt("open_attempts", currentAttempts + 1)
+        }
+    }
+
+    private fun incrementPreventions() {
+        val prefs = getSharedPreferences("appStats", MODE_PRIVATE)
+        val currentPreventions = prefs.getInt("preventions", 0)
+        prefs.edit {
+            putInt("preventions", currentPreventions + 1)
         }
     }
 

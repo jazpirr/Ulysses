@@ -23,6 +23,7 @@ import cit.edu.ulysses.adapters.AppListStatAdapter
 import cit.edu.ulysses.adapters.ChartPagerAdapter
 import cit.edu.ulysses.data.AppStats
 import cit.edu.ulysses.helpers.UsageStatsHelper
+import cit.edu.ulysses.services.AppMonitorAccessibilityService
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +36,8 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: AppListStatAdapter
     private lateinit var tvTotalTime: TextView
     private lateinit var tvSubtitle: TextView
+    private lateinit var tvOpenAttempts: TextView
+    private lateinit var tvPreventions: TextView
     private var packageNames = listOf<String>()
     private var currentTotalTimeMillis: Long = 0L
     private var tabPosition = 0
@@ -44,6 +47,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateOverallStats()
+        updateStatistics()
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +60,10 @@ class HomeFragment : Fragment() {
 
         tvTotalTime = view.findViewById(R.id.totalTimeText)
         tvSubtitle = view.findViewById(R.id.subtitle)
+        tvOpenAttempts = view.findViewById(R.id.numOpenAttempts)
+        tvPreventions = view.findViewById(R.id.numPreventions)
         updateTextView(usageStatsHelper.getTotalScreenTime(), "screen_time")
+        updateStatistics()
 
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
@@ -264,5 +271,13 @@ class HomeFragment : Fragment() {
             appList.addAll(loadedStats)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun updateStatistics() {
+        val openAttempts = AppMonitorAccessibilityService.getOpenAttempts(requireContext())
+        val preventions = AppMonitorAccessibilityService.getPreventions(requireContext())
+        
+        tvOpenAttempts.text = openAttempts.toString()
+        tvPreventions.text = preventions.toString()
     }
 }
