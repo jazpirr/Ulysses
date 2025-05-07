@@ -46,10 +46,12 @@ class AddNoteFragment(private val onNoteAdded: () -> Unit) : DialogFragment() {
                 return@setOnClickListener
             }
 
+
             val note = hashMapOf(
                 "title" to title,
                 "content" to content,
-                "timestamp" to System.currentTimeMillis()
+                "timestamp" to System.currentTimeMillis(),
+                "userId" to userId
             )
 
             FirebaseFirestore.getInstance()

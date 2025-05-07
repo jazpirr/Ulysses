@@ -2,6 +2,7 @@ package cit.edu.ulysses.fragment
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -24,20 +25,6 @@ class ViewnoteDialogFragment(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = DialogViewNoteBinding.inflate(LayoutInflater.from(context))
 
-        // val db = NotesHelper(requireContext())
-        // val note = db.getNoteByID(noteId)
-        // binding.viewDescription.setText(note.content)
-        // binding.title.setText(note.title)
-
-        db.collection("notes").document(noteId).get()
-            .addOnSuccessListener { doc ->
-                val note = doc.toObject(Note::class.java)
-                if (note != null && note.userId == userId) {
-                    binding.viewDescription.setText(note.content)
-                    binding.title.setText(note.title)
-                }
-            }
-
         binding.btnOK.setOnClickListener {
             dismiss()
         }
@@ -53,6 +40,27 @@ class ViewnoteDialogFragment(
             (resources.displayMetrics.widthPixels * 0.90).toInt(),
             (resources.displayMetrics.heightPixels * 0.85).toInt()
         )
+
+        Log.d("ViewNoteDialog", "Fetching note: $noteId for user: $userId")
+        userId?.let { uid ->
+            db.collection("users")
+                .document(uid)
+                .collection("notes")
+                .document(noteId)
+                .get()
+                .addOnSuccessListener { doc ->
+                    val note = doc.toObject(Note::class.java)
+                    if (note != null) {
+                        binding.viewDescription.setText(note.content)
+                        binding.title.setText(note.title)
+                    } else {
+                        android.util.Log.e("ViewNoteDialog", "Note is null or not owned by user.")
+                    }
+                }
+                .addOnFailureListener {
+                    android.util.Log.e("ViewNoteDialog", "Failed to fetch note", it)
+                }
+        }
     }
 
     override fun onDestroyView() {
